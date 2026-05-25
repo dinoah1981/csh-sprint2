@@ -1,3 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSH HS Redesign &mdash; Design Sprint 2 Pre-Read</title>
+<style>
+:root {
+  --bg: #fafaf7; --ink: #1a1a1a; --ink-soft: #4a4a4a; --rule: #e2e2dc;
+  --accent: #2d5016; --accent-soft: #d9ead3; --gold: #fff2cc; --blue: #cfe2f3;
+  --purple: #d9d2e9; --pink: #ead1dc; --gray: #eeeeec; --chosen: #ffd966;
+}
+* { box-sizing: border-box; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); margin: 0; line-height: 1.55; }
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+header.top { border-bottom: 2px solid var(--ink); padding-bottom: 1rem; margin-bottom: 2rem; }
+h1 { font-size: 2rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
+.subtitle { color: var(--ink-soft); font-size: 1.05rem; margin: 0; }
+nav.toc { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0 2rem; }
+nav.toc h2 { margin: 0 0 .5rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+nav.toc ol { margin: 0; padding-left: 1.2rem; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+section.major { margin-top: 3rem; scroll-margin-top: 1rem; }
+section.major > h2 { font-size: 1.6rem; border-bottom: 1px solid var(--rule); padding-bottom: .4rem; margin-bottom: .75rem; }
+section.major > p.section-intro { color: var(--ink-soft); font-size: 1rem; margin-top: 0; margin-bottom: 1.75rem; }
+.why-section { margin-top: 2rem; }
+.why-visual { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.why-svg { width: 100%; height: auto; display: block; }
+.why-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: .5rem; }
+@media (max-width: 800px) { .why-three { grid-template-columns: 1fr; } }
+.why-pillar { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem; }
+.why-pillar-num { font-family: ui-monospace, monospace; font-size: .85rem; color: var(--accent); font-weight: 700; letter-spacing: .1em; }
+.why-pillar h3 { margin: .35rem 0 .5rem; font-size: 1.05rem; }
+.why-pillar p { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+.why-citation { background: #f5f9f0; border: 1px solid var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.5rem; }
+.why-citation .citation-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 700; margin-bottom: .35rem; }
+.why-citation p { margin: 0; font-size: .9rem; color: var(--ink); line-height: 1.6; }
+.why-citation a { color: var(--accent); font-weight: 500; }
+.why-citation { background: #f5f9f0; border: 1px solid var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.5rem; }
+.why-citation .citation-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 700; margin-bottom: .35rem; }
+.why-citation p { margin: 0; font-size: .9rem; color: var(--ink); line-height: 1.6; }
+.why-citation a { color: var(--accent); font-weight: 500; }
+.domain { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+.domain > header { display: flex; gap: 1rem; align-items: flex-start; border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: .75rem; }
+.domain-num { font-family: ui-monospace, monospace; font-size: 1.6rem; color: var(--accent); font-weight: 700; min-width: 2rem; }
+.domain h3 { margin: 0; font-size: 1.2rem; }
+.score { font-size: .85rem; color: var(--ink-soft); margin-top: .25rem; text-transform: uppercase; letter-spacing: .06em; }
+.score span { color: var(--accent); font-weight: 600; }
+.explanation { margin: 0 0 .75rem; color: var(--ink-soft); font-size: .95rem; }
+.comp-list { margin: 0; padding: 0; list-style: none; }
+.comp-list li { padding: .4rem .6rem .4rem 1.6rem; border-bottom: 1px dotted var(--rule); position: relative; font-size: .95rem; }
+.comp-list li::before { content: "\25CB"; position: absolute; left: .4rem; color: #aaa; }
+.comp-list li.essential { background: var(--accent-soft); border-radius: 4px; border-bottom: 1px solid rgba(45,80,22,.15); font-weight: 500; }
+.comp-list li.essential::before { content: "\2605"; color: var(--accent); }
+.legend { font-size: .85rem; color: var(--ink-soft); margin: .75rem 0 0; padding: .5rem .75rem; background: white; border: 1px dashed var(--rule); border-radius: 6px; }
+.legend .essential-swatch { display: inline-block; width: 1em; height: 1em; background: var(--accent-soft); border-radius: 2px; vertical-align: middle; margin-right: .25rem; }
+.schedule-option { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+.schedule-option.chosen { border: 2px solid var(--chosen); box-shadow: 0 0 0 4px rgba(255, 217, 102, .15); }
+.schedule-option h3 { margin: 0 0 .75rem; font-size: 1.2rem; }
+.chosen-badge { display: inline-block; background: var(--chosen); color: #4a3a00; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; padding: .25rem .6rem; border-radius: 999px; font-weight: 700; margin-left: .5rem; vertical-align: middle; }
+table.sched { width: 100%; border-collapse: collapse; font-size: .85rem; margin-bottom: 1rem; }
+table.sched th, table.sched td { border: 1px solid var(--rule); padding: .45rem .5rem; text-align: center; vertical-align: middle; }
+table.sched th { background: var(--gray); font-weight: 600; }
+table.sched .time { background: #f5f5f0; text-align: left; font-family: ui-monospace, monospace; font-size: .65rem; width: 95px; white-space: nowrap; padding: .35rem .25rem; letter-spacing: -.01em; }
+table.sched .slot { background: #f5f5f0; font-weight: 600; width: 40px; }
+.cell.core { background: var(--accent); color: white; font-weight: 500; }
+.cell.block-a { background: var(--gold); }
+.cell.block-b { background: var(--blue); }
+.cell.block-c { background: var(--purple); }
+.cell.advisory { background: var(--pink); font-style: italic; }
+.cell.lunch { background: #f3f3f3; color: #555; font-size: .8rem; }
+.cell.plan { background: #d9d9d9; font-style: italic; color: #444; }
+.prep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .5rem; }
+@media (max-width: 800px) { .prep-grid { grid-template-columns: 1fr; } }
+.prep-block { background: #fbfbf7; border: 1px solid var(--rule); border-radius: 6px; padding: .75rem; }
+.prep-block h4 { margin: 0 0 .25rem; font-size: .9rem; }
+.prep-desc { font-size: .8rem; color: var(--ink-soft); margin: 0 0 .5rem; }
+table.prep { width: 100%; border-collapse: collapse; font-size: .75rem; }
+table.prep th, table.prep td { border: 1px solid var(--rule); padding: .25rem .35rem; text-align: center; }
+table.prep th { background: var(--gray); }
+table.prep .slot { background: #f5f5f0; font-weight: 600; text-align: left; width: 50px; }
+.prep-min { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.prep-label { background: #d9d9d9; font-style: italic; font-size: .7rem; }
+.notional-note { background: #fff8e0; border-left: 4px solid var(--chosen); padding: .75rem 1rem; border-radius: 4px; font-size: .95rem; margin-bottom: 1.5rem; color: #5c4a00; }
+.bucket { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+.bucket-head h3 { margin: 0 0 .25rem; font-size: 1.15rem; display: flex; align-items: center; gap: .6rem; }
+.bucket-head .count { background: var(--accent); color: white; font-size: .75rem; padding: .15rem .55rem; border-radius: 999px; }
+.bucket-head p { color: var(--ink-soft); font-size: .9rem; margin: 0 0 1rem; }
+table.exp-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+table.exp-table th, table.exp-table td { border-bottom: 1px solid var(--rule); padding: .5rem .6rem; text-align: left; vertical-align: top; }
+table.exp-table th { background: #f5f5f0; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+table.exp-table .exp-name { font-weight: 600; }
+table.exp-table .exp-goal { font-weight: 400; color: var(--ink-soft); font-size: .8rem; margin-top: .15rem; }
+table.exp-table .exp-cat { color: var(--ink-soft); font-size: .8rem; }
+table.exp-table .num { text-align: right; font-family: ui-monospace, monospace; font-size: .85rem; }
+.badge { display: inline-block; padding: .15rem .5rem; border-radius: 999px; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.badge-int { background: var(--accent-soft); color: var(--accent); }
+.badge-ext { background: #fce5cd; color: #783f04; }
+.badge-block-ab { background: var(--gold); color: #5c4a00; }
+.badge-block-c { background: var(--purple); color: #3d2c5c; }
+.sprint-block { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+.sprint-heading { display: flex; align-items: center; gap: .75rem; border-bottom: 1px solid var(--rule); padding-bottom: .6rem; margin-bottom: .75rem; }
+.sprint-heading h3 { margin: 0; font-size: 1.15rem; }
+.sprint-tag { display: inline-block; background: var(--accent); color: white; font-family: ui-monospace, monospace; font-size: .8rem; font-weight: 700; letter-spacing: .08em; padding: .25rem .55rem; border-radius: 6px; }
+.sprint-tag-pm { background: #783f04; }
+ol.sprint-q { margin: 0; padding-left: 1.4rem; }
+ol.sprint-q li { padding: .4rem 0; font-size: .98rem; line-height: 1.55; border-bottom: 1px dotted var(--rule); }
+ol.sprint-q li:last-child { border-bottom: none; }
+footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .sprint-block, .why-pillar, .why-visual { break-inside: avoid; } nav.toc { break-after: page; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="top">
+  <h1>CSH High School Redesign &mdash; Design Sprint 2 Pre-Read</h1>
+  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule structures we considered (and the one we chose), the experiences that will populate the afternoon blocks, and the questions we will work through together in Sprint 2.</p>
+</header>
+
+<nav class="toc">
+  <h2>What is in here</h2>
+  <ol>
+    <li><a href="#why">Why we are redesigning</a> &mdash; the unchanged mission, the changed world, and the morning / afternoon split that follows</li>
+    <li><a href="#competencies">Core Competencies</a> &mdash; six domains, what is essential vs. aspirational, and the SCORE value tied to each</li>
+    <li><a href="#schedules">Schedule Options</a> &mdash; four structures considered, with two teacher-prep distributions for each, and the one we chose</li>
+    <li><a href="#experiences">PM Experience Blocks</a> &mdash; 59 experiences across five buckets that would fill A, B, and C</li>
+    <li><a href="#sprint2">Design Sprint 2 &mdash; what we will discuss</a></li>
+  </ol>
+</nav>
+
+
+<section id="why" class="major why-section">
+  <h2>1. Why we're redesigning the high school</h2>
+  <p class="section-intro">Our mission has not changed: every CSH student to economic freedom by 25. The world we're preparing students for has. In an AI-shaped economy, the traditional all-day academic model — built when knowledge itself was scarce and valuable — no longer hits the target. Knowledge is still the foundation. But what students <em>can do</em>, build, and demonstrate is what will determine their value in the economy and the depth of their lives. If the mission is the same, the school has to change.</p>
+  <div class="why-visual"><svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" class="why-svg" role="img" aria-labelledby="why-svg-title">
+  <title id="why-svg-title">Same mission, new path: morning knowing, afternoon doing</title>
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2d5016"/>
+    </marker>
+  </defs>
+  <!-- Mission anchor at top -->
+  <rect x="200" y="14" width="500" height="56" rx="10" fill="#2d5016"/>
+  <text x="450" y="38" text-anchor="middle" fill="white" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="600" letter-spacing="0.5">UNCHANGED MISSION</text>
+  <text x="450" y="60" text-anchor="middle" fill="white" font-family="ui-sans-serif, system-ui" font-size="16" font-weight="700">Every CSH student reaches economic freedom by 25</text>
+  <!-- arrow down -->
+  <line x1="450" y1="76" x2="450" y2="104" stroke="#2d5016" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <!-- Changed world middle band -->
+  <rect x="60" y="110" width="780" height="60" rx="8" fill="#fff8e0" stroke="#ffd966" stroke-width="2"/>
+  <text x="450" y="135" text-anchor="middle" fill="#5c4a00" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="600" letter-spacing="0.5">BUT THE WORLD HAS CHANGED</text>
+  <text x="450" y="156" text-anchor="middle" fill="#5c4a00" font-family="ui-sans-serif, system-ui" font-size="14">In an AI-shaped economy, what students <tspan font-weight="700">can do</tspan> matters more than what they <tspan font-weight="700">know</tspan>.</text>
+  <!-- arrow down -->
+  <line x1="450" y1="176" x2="450" y2="204" stroke="#2d5016" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <!-- So the day splits -->
+  <text x="450" y="226" text-anchor="middle" fill="#1a1a1a" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="600" letter-spacing="0.5">SO WE SPLIT THE DAY</text>
+  <!-- Morning box -->
+  <rect x="60" y="246" width="380" height="100" rx="12" fill="#d9ead3" stroke="#2d5016" stroke-width="1.5"/>
+  <text x="250" y="272" text-anchor="middle" fill="#2d5016" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="700" letter-spacing="1">MORNING — KNOWING</text>
+  <text x="250" y="295" text-anchor="middle" fill="#1a1a1a" font-family="ui-sans-serif, system-ui" font-size="13">5 core classes · 3× per week · 1 hour each</text>
+  <text x="250" y="315" text-anchor="middle" fill="#1a1a1a" font-family="ui-sans-serif, system-ui" font-size="13">English · Math · Science · History · CS</text>
+  <text x="250" y="334" text-anchor="middle" fill="#4a4a4a" font-family="ui-sans-serif, system-ui" font-size="12" font-style="italic">The foundation — but not the destination</text>
+  <!-- Afternoon box -->
+  <rect x="460" y="246" width="380" height="100" rx="12" fill="#fff2cc" stroke="#b08d00" stroke-width="1.5"/>
+  <text x="650" y="272" text-anchor="middle" fill="#5c4a00" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="700" letter-spacing="1">AFTERNOON — DOING</text>
+  <text x="650" y="295" text-anchor="middle" fill="#1a1a1a" font-family="ui-sans-serif, system-ui" font-size="13">Experience blocks · majors + minors · trimester picks</text>
+  <text x="650" y="315" text-anchor="middle" fill="#1a1a1a" font-family="ui-sans-serif, system-ui" font-size="13">Hands-on · applied · partner-run · real deliverables</text>
+  <text x="650" y="334" text-anchor="middle" fill="#4a4a4a" font-family="ui-sans-serif, system-ui" font-size="12" font-style="italic">One deliverable per experience — pass/fail</text>
+</svg></div>
+  <div class="why-three">
+    <div class="why-pillar">
+      <div class="why-pillar-num">01</div>
+      <h3>Mornings are for Knowing</h3>
+      <p>Five core classes — English, Math, Science, History, CS — meet three times a week for an hour each. That's the academic foundation, focused and protected.</p>
+    </div>
+    <div class="why-pillar">
+      <div class="why-pillar-num">02</div>
+      <h3>Afternoons are for Doing</h3>
+      <p>Hands-on experiences in three categories: academic-applied integration (engineering, lab science, app-building, research writing), life skills (cooking, finance, civic engagement), and human experience & enrichment (arts, music, NYC culture). Every experience ends in one concrete deliverable.</p>
+    </div>
+    <div class="why-pillar">
+      <div class="why-pillar-num">03</div>
+      <h3>Same mission, new path</h3>
+      <p>Economic freedom by 25 still drives every choice. But the route now runs through what students have <em>built</em> and <em>demonstrated</em> — not just what they've absorbed. This pre-read is the design we're testing in Sprint 2.</p>
+    </div>
+  </div>
+  <aside class="why-citation">
+    <div class="citation-label">External evidence</div>
+    <p><strong>The Burning Glass Institute &amp; aiEDU,</strong> <em>"Which Skills Matter Now? A Data-Driven Framework for K&ndash;12 in the Age of AI"</em> (February 2026). Analyzing AI's impact on 1,000 workforce skills and 140 high-school learning objectives, the report finds that <strong>roughly 70% of K&ndash;12 learning objectives will need to be taught differently</strong> in an AI-shaped economy. Three of its core themes line up directly with this redesign: skills with high automation exposure now demand <em>deeper</em> conceptual understanding (not less); every discipline contains skills that need new instructional approaches alongside skills that remain foundational; and traditional assessment must shift toward evaluating student thinking, reasoning, and judgment &mdash; not the polished outputs AI can generate. &rarr; <a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">burningglassinstitute.org/research/whichskillsmatternow</a></p>
+  </aside>
+</section>
+
+<section id="competencies" class="major">
+  <h2>2. Core Competencies</h2>
+  <p class="section-intro">Six domains. Domains 1&ndash;5 are about getting to economic freedom. Domain 6 is what economic freedom lets you enjoy. Green-shaded competencies (&#9733;) are the most essential &mdash; the ones every graduate must demonstrate. Unshaded competencies are still goals, but live behind the essentials in priority. Each domain is paired with the SCORE value it most depends on.</p>
+  <div class="legend">
+    <span class="essential-swatch"></span><strong>&#9733; Essential</strong> &mdash; every graduate must demonstrate this. &nbsp;&nbsp; &#9675; Aspirational &mdash; still a goal, but second-tier priority.
+  </div>
+  
+<article class="domain">
+  <header>
+    <div class="domain-num">1</div>
+    <div>
+      <h3>Career Readiness</h3>
+      <div class="score">SCORE: <span>Excellence, Consistency</span></div>
+    </div>
+  </header>
+  <p class="explanation">Students should graduate with the skills, habits, and reference points needed to enter the world of work with confidence. This domain is not only about technical skill; it is about experiencing real or workplace-analog settings so that graduates can say, &#x27;I have done something like this before,&#x27; and know how to approach unfamiliar work challenges.</p>
+  <ul class="comp-list">
+    <li class="essential">Communicates clearly in professional settings, orally and in writing</li>
+<li class="essential">Completes authentic work experiences such as internships, client projects, or career related programs.</li>
+<li class="essential">Demonstrates professional habits, including punctuality, reliability, preparation, follow-through, and communication</li>
+<li class="essential">Uses feedback to improve performance and meet clear standards</li>
+<li>Builds professional networks and manages their brand socially and digitally (resume, linkedin, finding mentors, maintaining relationships).</li>
+<li>Collaborates effectively with peers, supervisors, and clients</li>
+<li>Develops significant domain-specific knowledge, skill and experience in at least one career field.</li>
+<li>Develops the confidence to enter unfamiliar work settings and &quot;read&quot; the culture.</li>
+<li>Navigates common workplace expectations, norms, and responsibilities</li>
+
+  </ul>
+</article>
+
+<article class="domain">
+  <header>
+    <div class="domain-num">2</div>
+    <div>
+      <h3>Learning and Reasoning about the World</h3>
+      <div class="score">SCORE: <span>Excellence</span></div>
+    </div>
+  </header>
+  <p class="explanation">Students need both knowledge and the ability to use it. Reasoning cannot happen without facts, concepts, and disciplinary knowledge, and knowledge matters most when students can apply it to explain, analyze, interpret, and solve problems.</p>
+  <ul class="comp-list">
+    <li class="essential">Applies disciplinary knowledge to solve problems and make sense of the world</li>
+<li class="essential">Builds a strong foundation of knowledge in mathematics, science, history, literature, economics, civics, and science and technology, and an understanding of the current state of those fields. (Well enough to gain admission to and engage confidentally in college)</li>
+<li class="essential">Interprets and constructs clear, evidence-based explanations and arguments</li>
+<li>Reads and accurately interprets text.</li>
+<li>Synthesizes information from multiple sources and perspectives</li>
+<li>Uses historical and social knowledge to interpret the past and present</li>
+<li>Uses mathematical reasoning to analyze quantitative problems and real situations</li>
+<li>Uses philosophical, rhetorical, and analytical tools to examine ideas, texts, and claims</li>
+
+  </ul>
+</article>
+
+<article class="domain">
+  <header>
+    <div class="domain-num">3</div>
+    <div>
+      <h3>Agency, Problem Solving, and Perseverance</h3>
+      <div class="score">SCORE: <span>Resilience</span></div>
+    </div>
+  </header>
+  <p class="explanation">Students should not leave school waiting for directions. They should see learning as a tool for solving problems, develop the habit of taking initiative, and build the persistence to keep working when a solution is not immediately obvious. This matters for academic life, work, entrepreneurship, and a rapidly changing economy.</p>
+  <ul class="comp-list">
+    <li class="essential">Learns new tools (including AI), resources, and even bureaucratic systems in service of solving real problems.</li>
+<li class="essential">Persists through difficulty, ambiguity, and setbacks</li>
+<li class="essential">Takes initiative to solve problemsin academic, professional, and personal contexts instead of waiting passively for instructions</li>
+<li>Applies entrepreneurial thinking to opportunities, needs, and constraints</li>
+<li>Breaks complex challenges into manageable steps</li>
+<li>Generates, tests, and revises solutions through iteration</li>
+
+  </ul>
+</article>
+
+<article class="domain">
+  <header>
+    <div class="domain-num">4</div>
+    <div>
+      <h3>Caring for Self and Others</h3>
+      <div class="score">SCORE: <span>Ownership, Consistency</span></div>
+    </div>
+  </header>
+  <p class="explanation">A healthy life requires more than academic or economic success. Students should leave high school with the habits, knowledge, and relationships needed to care for their physical, emotional, and financial well-being, and to participate meaningfully in communities that enrich and sustain life.</p>
+  <ul class="comp-list">
+    <li class="essential">Maintains habits that support physical health and long-term well-being</li>
+<li class="essential">Practices basic financial habits and decision-making for adult life</li>
+<li>Builds and sustains respectful, supportive relationships</li>
+<li>Contributes to families, teams, and communities with care and responsibility</li>
+<li>Develops and maintains a sense of belonging within a network or community</li>
+<li>Recognizes, manages, and communicates about emotional needs in healthy ways</li>
+<li>Understands how to seek help, access resources, and navigate common life systems</li>
+<li>Understands that connection, mutual support, and community are part of a healthy life</li>
+
+  </ul>
+</article>
+
+<article class="domain">
+  <header>
+    <div class="domain-num">5</div>
+    <div>
+      <h3>Exploring Identity and Purpose</h3>
+      <div class="score">SCORE: <span>Self Awareness</span></div>
+    </div>
+  </header>
+  <p class="explanation">Students do not need to have a final answer to &#x27;Who am I?&#x27; by age eighteen. They do need tools, language, and habits for exploring identity, joy, purpose, and motivation over time. This domain is about beginning a lifelong process of self-understanding rather than finishing it.</p>
+  <ul class="comp-list">
+    <li class="essential">Begins to articulate values, commitments, and sources of purpose</li>
+<li class="essential">Explore how their identity intersects with professional, economic and social success.</li>
+<li>Develops habits of reflection that can continue beyond high school</li>
+<li>Examines which parts of identity feel central, meaningful, or personally powerful</li>
+<li>Explores how dimensions such as culture, ethnicity, language, geography, gender, and sexuality may or may not matter in their self-understanding</li>
+<li>Reflects on the identities, affiliations, and experiences that shape who they are</li>
+<li>Reflects on what motivates effort, commitment, and ambition</li>
+
+  </ul>
+</article>
+
+<article class="domain">
+  <header>
+    <div class="domain-num">6</div>
+    <div>
+      <h3>Enjoying and Enriching Life</h3>
+      <div class="score">SCORE: <span>Self Awareness</span></div>
+    </div>
+  </header>
+  <p class="explanation">Some experiences are worth cultivating because they enlarge human life. Exposure to art, music, literature, nature, and the richness of the city can deepen joy, curiosity, appreciation, and a sense of what makes life worth living. This domain could remain a distinct sixth domain or be woven into the five core domains.</p>
+  <ul class="comp-list">
+    <li class="essential">Develops interests, hobbies, and practices that create joy outside of work</li>
+<li>Appreciates art, music, literature, sports and other forms of human expression</li>
+<li>Builds habits of curiosity and participation in the cultural life around them</li>
+<li>Experiences nature as a source of beauty, reflection, and renewal</li>
+<li>Explores New York City as a dynamic cultural and civic environment</li>
+<li>Explores what brings joy, meaning, and fulfillment</li>
+<li>Recognizes that pleasure, wonder, and aesthetic appreciation are part of a full life</li>
+
+  </ul>
+</article>
+</section>
+
+<section id="schedules" class="major">
+  <h2>3. Schedule Options</h2>
+  <p class="section-intro">Four structures were considered. The morning is always academic core (classes 1&ndash;5). The afternoon is always experience blocks. Each option except Alternate Day was paired with two teacher prep distributions &mdash; Option 1 distributes preps across multiple days, Option 2 concentrates them on a single day so a department can arrive at 10:30 once a week and do its meeting in that protected morning. We chose 2-2-3 with Morning Advisory.</p>
+  
+<section class="schedule-option chosen">
+  <h3>2-2-3 with Morning Advisory <span class="chosen-badge">&#9733; chosen</span></h3>
+  <table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00 - 9:30</td><td class="slot">Adv</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td><td class="cell advisory">Advisory</td></tr><tr><td class="time">9:33 - 10:33</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td></tr><tr><td class="time">10:36 - 11:36</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td></tr><tr><td class="time">11:39 - 12:39</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td></tr><tr><td class="time">12:42 - 1:17</td><td class="slot">L/O</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Lunch 9/10, Open Hours 11/12</td><td class="cell lunch">Staff lunch</td></tr><tr><td class="time">1:20 - 1:55</td><td class="slot">L/O</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell lunch">Open Hours 9/10, Lunch 11/12</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">1:58 - 3:08</td><td class="slot">A/B</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-b">Block B</td><td class="cell block-b">Block B</td><td class="cell"></td></tr><tr><td class="time">3:11 - 4:20</td><td class="slot">B/C</td><td class="cell block-c">Block C</td><td class="cell block-c">Block C</td><td class="cell plan">Planning</td><td class="cell block-c">Block C</td><td class="cell"></td></tr></tbody></table>
+  
+<div class="prep-grid">
+  <div class="prep-block">
+    <h4>Prep Option 1 &mdash; distributed</h4>
+    <p class="prep-desc">Preps spread across multiple days. No late arrival. Department meetings happen during planning time on Wednesday or Friday.</p>
+    <table class="prep"><thead><tr><th></th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="slot">1</td><td></td><td></td><td class="prep-min">60</td><td></td><td></td></tr><tr><td class="slot">2</td><td></td><td class="prep-min">60</td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">3</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="slot">Lunch</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td></tr><tr><td class="slot">Lunch</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="slot">A</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td></td></tr><tr><td class="slot">B</td><td></td><td></td><td class="prep-min">75</td><td></td><td></td></tr></tbody></table>
+  </div>
+  <div class="prep-block">
+    <h4>Prep Option 2 &mdash; concentrated</h4>
+    <p class="prep-desc">Preps stacked on a single morning. Whole department arrives at 10:30 that day and uses the free morning for the dept meeting. Teaches straight through the rest of the week.</p>
+    <table class="prep"><thead><tr><th></th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="slot">1</td><td></td><td></td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">2</td><td></td><td></td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">3</td><td></td><td></td><td></td><td></td><td class="prep-min">60</td></tr><tr><td class="slot">Lunch</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td><td class="prep-min">35</td></tr><tr><td class="slot">Lunch</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="slot">A</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td class="prep-min">75</td><td></td></tr><tr><td class="slot">B</td><td></td><td></td><td class="prep-min">75</td><td></td><td></td></tr></tbody></table>
+  </div>
+</div>
+</section>
+
+<section class="schedule-option ">
+  <h3>2-2-3 (no morning advisory) </h3>
+  <table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00 - 10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td></tr><tr><td class="time">10:05 - 11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td></tr><tr><td class="time">11:10 - 12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td></tr><tr><td class="time">12:15 - 12:50</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Staff lunch?</td></tr><tr><td class="time">12:55 - 1:30</td><td class="slot">L/A</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">1:30 - 2:45</td><td class="slot">A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-b">Block B</td><td class="cell block-b">Block B</td><td class="cell"></td></tr><tr><td class="time">2:50 - 4:05</td><td class="slot">B</td><td class="cell block-c">Block C</td><td class="cell block-c">Block C</td><td class="cell plan">Planning</td><td class="cell block-c">Block C</td><td class="cell"></td></tr></tbody></table></section>
+
+<section class="schedule-option ">
+  <h3>4-3 </h3>
+  <table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00 - 10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td></tr><tr><td class="time">10:05 - 11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td></tr><tr><td class="time">11:10 - 12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 1</td><td class="cell core">Class 4</td><td class="cell core">Class 2</td><td class="cell core">Class 5</td></tr><tr><td class="time">12:15 - 12:50</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Lunch 9/10, Advisory 11/12</td><td class="cell lunch">Circle?</td></tr><tr><td class="time">12:55 - 1:30</td><td class="slot">L/A</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell lunch">Advisory 9/10, Lunch 11/12</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">1:30 - 2:45</td><td class="slot">A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell block-a">Block A</td><td class="cell"></td></tr><tr><td class="time">2:50 - 4:05</td><td class="slot">B</td><td class="cell block-b">Block B</td><td class="cell block-b">Block B</td><td class="cell plan">Planning</td><td class="cell block-b">Block B</td><td class="cell"></td></tr></tbody></table></section>
+
+<section class="schedule-option ">
+  <h3>Alternate Day </h3>
+  <table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00 - 10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell block-a">Block A (9-10)</td><td class="cell block-a">Block A (9-10)</td></tr><tr><td class="time">10:05 - 11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell block-b">Block B (10:05-11:05)</td><td class="cell block-b">Block B (10:05-11:05)</td></tr><tr><td class="time">11:10 - 12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">12:15 - 12:40</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell block-c">Block C (11:10-1:10)</td><td class="cell block-c">Block C (11:10-1:10)</td></tr><tr><td class="time">12:45 - 1:20</td><td class="slot">L/A</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">1:25 - 2:25</td><td class="slot">4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell plan">Planning</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">2:30 - 3:30</td><td class="slot">5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell"></td><td class="cell"></td></tr></tbody></table></section>
+</section>
+
+<section id="experiences" class="major">
+  <h2>4. PM Experience Blocks</h2>
+  <p class="section-intro">The afternoon blocks (A, B, and C in the 2-2-3 schedule) are filled by five types of experiences. The list below is the current full inventory across all five &mdash; 59 experiences in total. A/B-block experiences typically meet twice a week; C-block experiences usually meet once.</p>
+  <div class="notional-note">
+    <strong>Note:</strong> These experiences are still notional or representative. The names, capacities, and section counts will shift as we lock partners, faculty assignments, and student demand. Treat this as a working inventory, not a final catalog.
+  </div>
+  
+<section class="bucket"><header class="bucket-head"><h3>Repeatable structures <span class="count">4</span></h3><p>Recurring weekly structures that show up across the year — book clubs, AP class blocks, mandated study halls, math intervention. These solve for academic-skill gaps and depth-of-content needs that the morning core can&#x27;t fully cover.</p></header><table class="exp-table"><thead>
+      <tr>
+        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
+      </tr>
+    </thead><tbody>
+<tr>
+      <td class="exp-name">Book Club / Reading Intervention<div class="exp-goal">35 reading, 35 discussion, 10-15 read the same book, levelled and by interest, very low readers special intervention possibly software assisted, satisfy ELA setss</div></td>
+      <td class="exp-cat">Academic Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">12</td></tr>
+<tr>
+      <td class="exp-name">Math Intervention<div class="exp-goal">Prealgebra, algebra software assisted small intervention group, satisfy math setss</div></td>
+      <td class="exp-cat">Academic Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">4</td></tr>
+<tr>
+      <td class="exp-name">Mandated Study Hall<div class="exp-goal">For students with very poor attendance or repeated struggle with work habits, or do we have manadatory Thursday and Friday study halls for those kids run by non teachers?</div></td>
+      <td class="exp-cat">Academic Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">?</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">AP Blocks<div class="exp-goal">Bio, Calc, Precalc, Stats, USHistory, Lang, Lit, (not Comparative), African American History?, CSA, CSP?</div></td>
+      <td class="exp-cat">Academic Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">90</td>
+      <td class="num"></td></tr>
+</tbody></table></section>
+<section class="bucket"><header class="bucket-head"><h3>Exploration <span class="count">12</span></h3><p>Lower-stakes courses students elect to try out an area — engineering, biology experiment, debate, baking, poetry, foreign language. The goal is exposure and curiosity, not yet depth.</p></header><table class="exp-table"><thead>
+      <tr>
+        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
+      </tr>
+    </thead><tbody>
+<tr>
+      <td class="exp-name">Engineering 1</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Biology Experiment</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Chemistry Experiment</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Moot Court / Debate</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Healthcare Careers 1</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Student Government</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Enjoying Nature</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">10</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Appreciating NYC Culture</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">10</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Baking</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">10</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Poetry</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">10</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Learning experience tied to trip</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">10</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Foreign language<div class="exp-goal">Digital language learning</div></td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">10</td>
+      <td class="num">1</td></tr>
+</tbody></table></section>
+<section class="bucket"><header class="bucket-head"><h3>Required intro experiences <span class="count">17</span></h3><p>Mandatory intro-level experiences taught by core or electives faculty — History Research Paper, Career Plan, Manage Personal Finances, Cooking 1, Dance/Art/Music/Theater/Fitness 1. Every student gets one of these in each category at least once.</p></header><table class="exp-table"><thead>
+      <tr>
+        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
+      </tr>
+    </thead><tbody>
+<tr>
+      <td class="exp-name">History Research Paper</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Career Exposure [PSL]</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">20</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Career Plan [PSL]</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">30</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">College Knowledge [PSL]</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">20</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">College Applications [PSL]</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">30</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Nutrition and Self Care<div class="exp-goal">Explain healthy nutrition, sleep, exercise, and stress management.</div></td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Sexual Health<div class="exp-goal">Explain how people maintain healthy sexual and romantic relationships.</div></td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Manage personal finances [PSL]<div class="exp-goal">Demonstrate mastery of paychecks, taxes, bank accounts, credit cards, auto and home loans, and health insurance.</div></td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">20</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Invest and grow money [PSL]<div class="exp-goal">Demonstrate mastery of basics of securities, real estate investing, retirement accounts (IRA, 401k), and pensions.</div></td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">20</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Civic Engagement and Navigating Government [PSL]<div class="exp-goal">Register to vote, research candidates, access and advocate with government and public services (Police, NYCHA, city council, state reps, federal gov. offices (SSA, Post Office, Passport)</div></td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Community Service Project</td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Cooking 1<div class="exp-goal">Cook a healthy breakfast, lunch and dinner</div></td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Dance 1</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">20</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Art 1</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">20</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Music 1</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">20</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Theater 1</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">2</td></tr>
+<tr>
+      <td class="exp-name">Fitness 1</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">30</td>
+      <td class="num">2</td></tr>
+</tbody></table></section>
+<section class="bucket"><header class="bucket-head"><h3>Intensive experiences <span class="count">13</span></h3><p>Higher-level continuation courses taught by the same faculty as the intros — Engineering 2, Dance 2, Software Dev w/ AI, Small Business, Sports. These are where students go deep after the intro. Most live in the C block.</p></header><table class="exp-table"><thead>
+      <tr>
+        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
+      </tr>
+    </thead><tbody>
+<tr>
+      <td class="exp-name">Engineering 2</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Hydroponics/Green Careers?</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Python Post 1</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Python Post Editors</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Healthcare Careers 2</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Mental Health Careers</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Software Dev w/ AI</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Small Business</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Dance 2</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Art 2</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Music 2</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Theater 2</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Sports</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">20</td>
+      <td class="num">1</td></tr>
+</tbody></table></section>
+<section class="bucket"><header class="bucket-head"><h3>External experiences <span class="count">13</span></h3><p>Off-site or partner-run programs — CareerWise, Rocking the Boat, College NOW, ELP, Skilled Trades. Capacity is constrained by the partner, so seat counts are small. Most live in C.</p></header><table class="exp-table"><thead>
+      <tr>
+        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
+      </tr>
+    </thead><tbody>
+<tr>
+      <td class="exp-name">College NOW</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">30</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Culinary Careers</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">5</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Small Business (job)</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">5</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Rocking the Boat</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">ELP</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Careerwise</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B + C</span></td>
+      <td class="num">3</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Skilled Trade Intro</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">3</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Automotive Intro</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">3</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Healthcare Internship</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td></td>
+      <td class="num">3</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Flexible Job/Internship by Application</td>
+      <td class="exp-cat">Career Exploration and Knowledge</td>
+      <td><span class="badge badge-block-ab">A/B + C</span></td>
+      <td class="num">10</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Swimming<div class="exp-goal">Learn to swim</div></td>
+      <td class="exp-cat">Life Skills</td>
+      <td><span class="badge badge-block-c">C</span></td>
+      <td class="num">15</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Digital Design Program</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">2</td>
+      <td class="num">1</td></tr>
+<tr>
+      <td class="exp-name">Photography/Film</td>
+      <td class="exp-cat">Enjoyment and Enrichment</td>
+      <td><span class="badge badge-block-ab">A/B</span></td>
+      <td class="num">2</td>
+      <td class="num">1</td></tr>
+</tbody></table></section>
+</section>
 
 <section id="sprint2" class="major">
   <h2>5. Design Sprint 2 &mdash; What We Will Discuss</h2>
