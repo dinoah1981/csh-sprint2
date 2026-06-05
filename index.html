@@ -151,11 +151,28 @@ table.badge-table .num { text-align: center; font-family: ui-monospace, monospac
 .ghost .medal::after { border: none; }
 .tier-note { background: #f6f4fa; border-left: 4px solid var(--tier-c); border-radius: 4px; padding: .6rem .9rem; font-size: .85rem; color: var(--ink-soft); margin-top: 1.25rem; }
 .bonus-row-label { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--tier-c); margin: 1.25rem 0 .75rem; }
+.partner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 800px) { .partner-grid { grid-template-columns: 1fr; } }
+.partner { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.1rem 1.25rem; }
+.partner-head { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; border-bottom: 1px solid var(--rule); padding-bottom: .6rem; margin-bottom: .6rem; }
+.p-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-soft); border: 3px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.partner-head h3 { margin: 0; font-size: 1.05rem; }
+.anchor-chip { margin-left: auto; background: var(--accent); color: white; font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; padding: .22rem .55rem; border-radius: 999px; white-space: nowrap; }
+.p-need { font-size: .88rem; margin: 0 0 .5rem; }
+.p-start { font-size: .8rem; color: var(--ink-soft); margin: 0 0 .55rem; }
+.unlock-chips { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; }
+.unlock-chips .lbl { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-soft); }
+.chip-green { background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(45,80,22,.15); font-size: .72rem; font-weight: 600; padding: .18rem .5rem; border-radius: 999px; }
+.filter-note { background: #fff8e0; border-left: 4px solid var(--chosen); padding: .75rem 1rem; border-radius: 4px; font-size: .95rem; margin: 0 0 1.5rem; color: #5c4a00; }
+.success-card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; }
+.success-card h3 { margin: 0 0 .5rem; font-size: 1.15rem; }
+.success-card ul { margin: 0; padding-left: 1.3rem; font-size: .92rem; }
+.success-card li { padding: .2rem 0; }
 details.fine-print { margin-top: 1.75rem; }
 details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
 .fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card, .partner, .success-card { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
 <noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
@@ -164,7 +181,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <header class="top">
   <h1>CSH High School Redesign</h1>
-  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, and the badge-based graduation requirements that fill the afternoon blocks with real experiences.</p>
+  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, the badge-based graduation requirements that fill the afternoon blocks, and the external partners who make the work real.</p>
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Design sections">
@@ -172,6 +189,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   <button type="button" role="tab" data-tab="competencies" aria-selected="false">Competencies</button>
   <button type="button" role="tab" data-tab="schedules" aria-selected="false">Schedule</button>
   <button type="button" role="tab" data-tab="requirements" aria-selected="false">Requirements</button>
+  <button type="button" role="tab" data-tab="partners" aria-selected="false">Partners</button>
 </nav>
 
 
@@ -233,7 +251,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     <div class="citation-label">External evidence</div>
     <p><strong>The Burning Glass Institute &amp; aiEDU,</strong> <em>"Which Skills Matter Now? A Data-Driven Framework for K&ndash;12 in the Age of AI"</em> (February 2026). Analyzing AI's impact on 1,000 workforce skills and 140 high-school learning objectives, the report finds that <strong>roughly 70% of K&ndash;12 learning objectives will need to be taught differently</strong> in an AI-shaped economy. Three of its core themes line up directly with this redesign: skills with high automation exposure now demand <em>deeper</em> conceptual understanding (not less); every discipline contains skills that need new instructional approaches alongside skills that remain foundational; and traditional assessment must shift toward evaluating student thinking, reasoning, and judgment &mdash; not the polished outputs AI can generate. &rarr; <a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">burningglassinstitute.org/research/whichskillsmatternow</a></p>
   </aside>
-  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#requirements">Requirements</a></p>
+  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#requirements">Requirements</a> &middot; <a href="#partners">Partners</a></p>
 </section>
 
 <section id="competencies" class="major tab-panel">
@@ -588,6 +606,73 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </details>
 </section>
 
+<section id="partners" class="major tab-panel">
+  <h2>External Partner Strategy</h2>
+  <p class="section-intro">The Doing blocks only work if the work is real &mdash; and the labor market our students will enter is changing fast. Burning Glass Institute, Harvard, and the Federal Reserve are converging on the same finding: AI is collapsing the entry-level rung of the career ladder. Routine junior tasks are being automated, and employers increasingly hire people who already have the judgment that used to develop on the job. If that's the world, the old sequence &mdash; finish school, get a starter job, learn on the clock &mdash; no longer works. Our students need to graduate with real exposure to real work, real credentials, and real relationships with real employers already in hand. These partnerships, which also serve CSH_Alt (opening September 2026), are how the afternoon delivers that.</p>
+  <div class="filter-note"><strong>The test for every partner:</strong> does it move a student measurably closer to a credential, a paycheck, or a real understanding of how a job or business works? If not, it doesn't make the list. The mission is economic freedom by 25.</div>
+
+  <div class="partner-grid">
+    <div class="partner">
+      <div class="partner-head"><div class="p-icon">&#128295;</div><h3>Skilled Trades</h3><span class="anchor-chip">Anchor</span></div>
+      <p class="p-need">Job shadows growing into weekly hosting of 10&ndash;15 students with a teacher, in plumbing or HVAC &mdash; plus an apprenticeship-referral pathway for graduates.</p>
+      <p class="p-start"><strong>Where we're starting:</strong> Bronx mechanical contractors, the plumbers' and steamfitters' unions, SUNY Bronx EOC.</p>
+      <div class="unlock-chips"><span class="lbl">Unlocks</span><span class="chip-green">Skilled Trade Intro</span></div>
+    </div>
+    <div class="partner">
+      <div class="partner-head"><div class="p-icon">&#128663;</div><h3>Automotive</h3><span class="anchor-chip">Anchor</span></div>
+      <p class="p-need">Weekly hands-on hosting of 10&ndash;15 students with a teacher &mdash; brakes, oil, electrical basics.</p>
+      <p class="p-start"><strong>Where we're starting:</strong> independent shops in Mott Haven, Hunts Point, and Port Morris; Auto High School community contacts.</p>
+      <div class="unlock-chips"><span class="lbl">Unlocks</span><span class="chip-green">Automotive Intro</span></div>
+    </div>
+    <div class="partner">
+      <div class="partner-head"><div class="p-icon">&#128741;</div><h3>Rocking the Boat</h3></div>
+      <p class="p-need">A dedicated partnership: their carpentry, boatbuilding and seamanship, and environmental science programs map directly onto experiences we need. We bring students and a credit-bearing structure; they bring the program.</p>
+      <p class="p-start"><strong>Where we're starting:</strong> direct conversation with their school-partnerships team.</p>
+      <div class="unlock-chips"><span class="lbl">Unlocks</span><span class="chip-green">Rocking the Boat</span></div>
+    </div>
+    <div class="partner">
+      <div class="partner-head"><div class="p-icon">&#129658;</div><h3>Healthcare</h3><span class="anchor-chip">Anchor + pathway</span></div>
+      <p class="p-need">Phase 1: CPR and First Aid certification for whole cohorts. Phase 2: a pathway into CNA, EMT, or phlebotomy training for graduates.</p>
+      <p class="p-start"><strong>Where we're starting:</strong> dialysis and urgent-care providers, settlement-house workforce programs, Bronx EOC &mdash; and a named contact at each major Bronx hospital system.</p>
+      <div class="unlock-chips"><span class="lbl">Unlocks</span><span class="chip-green">Healthcare 1 &amp; 2</span><span class="chip-green">Healthcare Internship</span></div>
+    </div>
+    <div class="partner">
+      <div class="partner-head"><div class="p-icon">&#127978;</div><h3>Small Business</h3></div>
+      <p class="p-need">3&ndash;4 owner-operators. A student trades part-time labor for a real seat inside the business &mdash; pricing, customers, payroll, P&amp;L &mdash; and we validate the learning. The morning model for CSH_Alt and the seed of the Redesign small-business block.</p>
+      <p class="p-start"><strong>Where we're starting:</strong> owner-operators within walking distance &mdash; restaurants, barbershops, detailers, food trucks, tax prep &mdash; with Bronx Chamber and SoBRO for warm intros.</p>
+      <div class="unlock-chips"><span class="lbl">Unlocks</span><span class="chip-green">Small Business / Entrepreneurship</span></div>
+    </div>
+    <div class="partner">
+      <div class="partner-head"><div class="p-icon">&#128187;</div><h3>IT / MSP</h3><span class="anchor-chip">Anchor</span></div>
+      <p class="p-need">A managed-service provider hosting students for help-desk shadowing and hardware and basic network work, building toward CompTIA prep.</p>
+      <p class="p-start"><strong>Where we're starting:</strong> MSPs serving Bronx and lower-Westchester small businesses, our own IT vendors, and Per Scholas for graduate pathways.</p>
+      <div class="unlock-chips"><span class="lbl">Unlocks</span><span class="chip-green">IT Certification</span></div>
+    </div>
+    <div class="partner">
+      <div class="partner-head"><div class="p-icon">&#127946;</div><h3>Swimming</h3><span class="anchor-chip">Anchor</span></div>
+      <p class="p-need">A pool and certified instructor for cohorts of 15&ndash;20 students across a 10&ndash;12 week trimester, reachable by subway or bus from Wales Ave.</p>
+      <p class="p-start"><strong>Where we're starting:</strong> Bronx YMCAs, Asphalt Green, NYC Parks indoor pools, and the Hostos and Lehman College pools.</p>
+      <div class="unlock-chips"><span class="lbl">Unlocks</span><span class="chip-green">Swimming</span><span class="chip-green">Movement credit</span></div>
+    </div>
+  </div>
+
+  <div class="success-card">
+    <h3>What success looks like by end of FY27</h3>
+    <ul>
+      <li>All anchor partners signed and operating, with at least one student cohort completed in each.</li>
+      <li>3&ndash;4 small-business partners hosting interns, with documented learning rubrics.</li>
+      <li>CSH_Alt morning-job placements covered for the full Year 1 cohort by August 2026.</li>
+      <li>A working pipeline tracker with 25+ logged conversations &mdash; most won't pan out, and that's fine.</li>
+      <li>A standardized 1&ndash;2 page MOU template adopted across all partnerships.</li>
+      <li>A clear line of sight from each partnership to the credit-bearing Doing blocks it unlocks.</li>
+    </ul>
+  </div>
+
+  <aside class="why-citation">
+    <div class="citation-label">Grounding</div>
+    <p><strong>Will AI Start Careers in the Middle?</strong> &mdash; Matt Sigelman, Burning Glass Institute (podcast, ~30 min): <a href="https://futurohealth.org/podcast/matt-sigelman-president-of-burning-glass-institute-will-ai-start-careers-in-the-middle/" target="_blank" rel="noopener">the core thesis in his own words</a>. For the K&ndash;12 implication &mdash; deeper learning, authentic application, cross-sector partnerships &mdash; see <a href="https://www.burningglassinstitute.org/research" target="_blank" rel="noopener">Burning Glass Institute research</a>.</p>
+  </aside>
+</section>
 
 <footer>
   CSH High School Redesign &middot; Comp Sci High &middot; Revised June 2026
@@ -596,7 +681,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </div>
 <script>
 (function () {
-  var ids = ['why', 'competencies', 'schedules', 'requirements'];
+  var ids = ['why', 'competencies', 'schedules', 'requirements', 'partners'];
   var buttons = document.querySelectorAll('nav.tabs button');
   function show(id) {
     if (ids.indexOf(id) === -1) { id = 'why'; }
