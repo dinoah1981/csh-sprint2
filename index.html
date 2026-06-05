@@ -83,17 +83,6 @@ table.prep .slot { background: #f5f5f0; font-weight: 600; text-align: left; widt
 .prep-min { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
 .prep-label { background: #d9d9d9; font-style: italic; font-size: .7rem; }
 .notional-note { background: #fff8e0; border-left: 4px solid var(--chosen); padding: .75rem 1rem; border-radius: 4px; font-size: .95rem; margin-bottom: 1.5rem; color: #5c4a00; }
-.bucket { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
-.bucket-head h3 { margin: 0 0 .25rem; font-size: 1.15rem; display: flex; align-items: center; gap: .6rem; }
-.bucket-head .count { background: var(--accent); color: white; font-size: .75rem; padding: .15rem .55rem; border-radius: 999px; }
-.bucket-head p { color: var(--ink-soft); font-size: .9rem; margin: 0 0 1rem; }
-table.exp-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
-table.exp-table th, table.exp-table td { border-bottom: 1px solid var(--rule); padding: .5rem .6rem; text-align: left; vertical-align: top; }
-table.exp-table th { background: #f5f5f0; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
-table.exp-table .exp-name { font-weight: 600; }
-table.exp-table .exp-goal { font-weight: 400; color: var(--ink-soft); font-size: .8rem; margin-top: .15rem; }
-table.exp-table .exp-cat { color: var(--ink-soft); font-size: .8rem; }
-table.exp-table .num { text-align: right; font-family: ui-monospace, monospace; font-size: .85rem; }
 .badge { display: inline-block; padding: .15rem .5rem; border-radius: 999px; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
 .badge-int { background: var(--accent-soft); color: var(--accent); }
 .badge-ext { background: #fce5cd; color: #783f04; }
@@ -154,7 +143,7 @@ details.fine-print { margin-top: 1.75rem; }
 details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
 .fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
 <noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
@@ -163,14 +152,13 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <header class="top">
   <h1>CSH High School Redesign</h1>
-  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, the experiences that will populate the afternoon blocks, and the badge-based graduation requirements that tie them together.</p>
+  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, and the badge-based graduation requirements that fill the afternoon blocks with real experiences.</p>
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Design sections">
   <button type="button" role="tab" data-tab="why" aria-selected="true">Why We're Redesigning</button>
   <button type="button" role="tab" data-tab="competencies" aria-selected="false">Competencies</button>
   <button type="button" role="tab" data-tab="schedules" aria-selected="false">Schedule</button>
-  <button type="button" role="tab" data-tab="experiences" aria-selected="false">Experiences</button>
   <button type="button" role="tab" data-tab="requirements" aria-selected="false">Requirements</button>
 </nav>
 
@@ -233,7 +221,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     <div class="citation-label">External evidence</div>
     <p><strong>The Burning Glass Institute &amp; aiEDU,</strong> <em>"Which Skills Matter Now? A Data-Driven Framework for K&ndash;12 in the Age of AI"</em> (February 2026). Analyzing AI's impact on 1,000 workforce skills and 140 high-school learning objectives, the report finds that <strong>roughly 70% of K&ndash;12 learning objectives will need to be taught differently</strong> in an AI-shaped economy. Three of its core themes line up directly with this redesign: skills with high automation exposure now demand <em>deeper</em> conceptual understanding (not less); every discipline contains skills that need new instructional approaches alongside skills that remain foundational; and traditional assessment must shift toward evaluating student thinking, reasoning, and judgment &mdash; not the polished outputs AI can generate. &rarr; <a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">burningglassinstitute.org/research/whichskillsmatternow</a></p>
   </aside>
-  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#experiences">Experiences</a> &middot; <a href="#requirements">Requirements</a></p>
+  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#requirements">Requirements</a></p>
 </section>
 
 <section id="competencies" class="major tab-panel">
@@ -366,398 +354,6 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   <table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00 - 10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell block-a">Block A (9-10)</td><td class="cell block-a">Block A (9-10)</td></tr><tr><td class="time">10:05 - 11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell block-b">Block B (10:05-11:05)</td><td class="cell block-b">Block B (10:05-11:05)</td></tr><tr><td class="time">11:10 - 12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">12:15 - 12:40</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell block-c">Block C (11:10-1:10)</td><td class="cell block-c">Block C (11:10-1:10)</td></tr><tr><td class="time">12:45 - 1:20</td><td class="slot">L/A</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">1:25 - 2:25</td><td class="slot">4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell plan">Planning</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">2:30 - 3:30</td><td class="slot">5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell"></td><td class="cell"></td></tr></tbody></table></section>
 </section>
 
-<section id="experiences" class="major tab-panel">
-  <h2>PM Experience Blocks</h2>
-  <p class="section-intro">The afternoon blocks (A, B, and C in the 2-2-3 schedule) are filled by five types of experiences. The list below is the current full inventory across all five &mdash; 59 experiences in total. A/B-block experiences typically meet twice a week; C-block experiences usually meet once.</p>
-  <div class="notional-note">
-    <strong>Note:</strong> These experiences are still notional or representative. The names, capacities, and section counts will shift as we lock partners, faculty assignments, and student demand. Treat this as a working inventory, not a final catalog.
-  </div>
-  
-<section class="bucket"><header class="bucket-head"><h3>Repeatable structures <span class="count">4</span></h3><p>Recurring weekly structures that show up across the year — book clubs, AP class blocks, mandated study halls, math intervention. These solve for academic-skill gaps and depth-of-content needs that the morning core can&#x27;t fully cover.</p></header><table class="exp-table"><thead>
-      <tr>
-        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
-      </tr>
-    </thead><tbody>
-<tr>
-      <td class="exp-name">Book Club / Reading Intervention<div class="exp-goal">35 reading, 35 discussion, 10-15 read the same book, levelled and by interest, very low readers special intervention possibly software assisted, satisfy ELA setss</div></td>
-      <td class="exp-cat">Academic Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">12</td></tr>
-<tr>
-      <td class="exp-name">Math Intervention<div class="exp-goal">Prealgebra, algebra software assisted small intervention group, satisfy math setss</div></td>
-      <td class="exp-cat">Academic Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">4</td></tr>
-<tr>
-      <td class="exp-name">Mandated Study Hall<div class="exp-goal">For students with very poor attendance or repeated struggle with work habits, or do we have manadatory Thursday and Friday study halls for those kids run by non teachers?</div></td>
-      <td class="exp-cat">Academic Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">?</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">AP Blocks<div class="exp-goal">Bio, Calc, Precalc, Stats, USHistory, Lang, Lit, (not Comparative), African American History?, CSA, CSP?</div></td>
-      <td class="exp-cat">Academic Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">90</td>
-      <td class="num"></td></tr>
-</tbody></table></section>
-<section class="bucket"><header class="bucket-head"><h3>Exploration <span class="count">12</span></h3><p>Lower-stakes courses students elect to try out an area — engineering, biology experiment, debate, baking, poetry, foreign language. The goal is exposure and curiosity, not yet depth.</p></header><table class="exp-table"><thead>
-      <tr>
-        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
-      </tr>
-    </thead><tbody>
-<tr>
-      <td class="exp-name">Engineering 1</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Biology Experiment</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Chemistry Experiment</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Moot Court / Debate</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Healthcare Careers 1</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Student Government</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Enjoying Nature</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">10</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Appreciating NYC Culture</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">10</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Baking</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">10</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Poetry</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">10</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Learning experience tied to trip</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">10</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Foreign language<div class="exp-goal">Digital language learning</div></td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">10</td>
-      <td class="num">1</td></tr>
-</tbody></table></section>
-<section class="bucket"><header class="bucket-head"><h3>Required intro experiences <span class="count">17</span></h3><p>Mandatory intro-level experiences taught by core or electives faculty — History Research Paper, Career Plan, Manage Personal Finances, Cooking 1, Dance/Art/Music/Theater/Fitness 1. Every student gets one of these in each category at least once.</p></header><table class="exp-table"><thead>
-      <tr>
-        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
-      </tr>
-    </thead><tbody>
-<tr>
-      <td class="exp-name">History Research Paper</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Career Exposure [PSL]</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">20</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Career Plan [PSL]</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">30</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">College Knowledge [PSL]</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">20</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">College Applications [PSL]</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">30</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Nutrition and Self Care<div class="exp-goal">Explain healthy nutrition, sleep, exercise, and stress management.</div></td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Sexual Health<div class="exp-goal">Explain how people maintain healthy sexual and romantic relationships.</div></td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Manage personal finances [PSL]<div class="exp-goal">Demonstrate mastery of paychecks, taxes, bank accounts, credit cards, auto and home loans, and health insurance.</div></td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">20</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Invest and grow money [PSL]<div class="exp-goal">Demonstrate mastery of basics of securities, real estate investing, retirement accounts (IRA, 401k), and pensions.</div></td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">20</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Civic Engagement and Navigating Government [PSL]<div class="exp-goal">Register to vote, research candidates, access and advocate with government and public services (Police, NYCHA, city council, state reps, federal gov. offices (SSA, Post Office, Passport)</div></td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Community Service Project</td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Cooking 1<div class="exp-goal">Cook a healthy breakfast, lunch and dinner</div></td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Dance 1</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">20</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Art 1</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">20</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Music 1</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">20</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Theater 1</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">2</td></tr>
-<tr>
-      <td class="exp-name">Fitness 1</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">30</td>
-      <td class="num">2</td></tr>
-</tbody></table></section>
-<section class="bucket"><header class="bucket-head"><h3>Intensive experiences <span class="count">13</span></h3><p>Higher-level continuation courses taught by the same faculty as the intros — Engineering 2, Dance 2, Software Dev w/ AI, Small Business, Sports. These are where students go deep after the intro. Most live in the C block.</p></header><table class="exp-table"><thead>
-      <tr>
-        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
-      </tr>
-    </thead><tbody>
-<tr>
-      <td class="exp-name">Engineering 2</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Hydroponics/Green Careers?</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Python Post 1</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Python Post Editors</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Healthcare Careers 2</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Mental Health Careers</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Software Dev w/ AI</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Small Business</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Dance 2</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Art 2</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Music 2</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Theater 2</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Sports</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">20</td>
-      <td class="num">1</td></tr>
-</tbody></table></section>
-<section class="bucket"><header class="bucket-head"><h3>External experiences <span class="count">13</span></h3><p>Off-site or partner-run programs — CareerWise, Rocking the Boat, College NOW, ELP, Skilled Trades. Capacity is constrained by the partner, so seat counts are small. Most live in C.</p></header><table class="exp-table"><thead>
-      <tr>
-        <th>Experience</th><th>Source category</th><th>A/B vs C</th><th>Max per section</th><th>Sections per trimester</th>
-      </tr>
-    </thead><tbody>
-<tr>
-      <td class="exp-name">College NOW</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">30</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Culinary Careers</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">5</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Small Business (job)</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">5</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Rocking the Boat</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">ELP</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Careerwise</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B + C</span></td>
-      <td class="num">3</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Skilled Trade Intro</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">3</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Automotive Intro</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">3</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Healthcare Internship</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td></td>
-      <td class="num">3</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Flexible Job/Internship by Application</td>
-      <td class="exp-cat">Career Exploration and Knowledge</td>
-      <td><span class="badge badge-block-ab">A/B + C</span></td>
-      <td class="num">10</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Swimming<div class="exp-goal">Learn to swim</div></td>
-      <td class="exp-cat">Life Skills</td>
-      <td><span class="badge badge-block-c">C</span></td>
-      <td class="num">15</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Digital Design Program</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">2</td>
-      <td class="num">1</td></tr>
-<tr>
-      <td class="exp-name">Photography/Film</td>
-      <td class="exp-cat">Enjoyment and Enrichment</td>
-      <td><span class="badge badge-block-ab">A/B</span></td>
-      <td class="num">2</td>
-      <td class="num">1</td></tr>
-</tbody></table></section>
-</section>
 
 <section id="requirements" class="major tab-panel">
   <h2>Graduation Requirements &mdash; A Badging System</h2>
@@ -855,6 +451,9 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 <details class="fine-print">
   <summary>The fine print &mdash; full badge tables (credits, blocks, grade locks, complete menus)</summary>
   <div class="fine-print-body">
+  <div class="notional-note">
+    <strong>Note:</strong> These experiences are still notional or representative. The names, capacities, and section counts will shift as we lock partners, faculty assignments, and student demand. Treat this as a working inventory, not a final catalog.
+  </div>
 <section class="badge-family">
   <header>
     <h3>Academic Skills <span class="family-credits">4 required credits</span></h3>
@@ -966,7 +565,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </div>
 <script>
 (function () {
-  var ids = ['why', 'competencies', 'schedules', 'experiences', 'requirements'];
+  var ids = ['why', 'competencies', 'schedules', 'requirements'];
   var buttons = document.querySelectorAll('nav.tabs button');
   function show(id) {
     if (ids.indexOf(id) === -1) { id = 'why'; }
