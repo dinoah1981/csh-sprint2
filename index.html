@@ -119,8 +119,42 @@ table.badge-table th { background: #f5f5f0; font-weight: 600; font-size: .75rem;
 table.badge-table .num { text-align: center; font-family: ui-monospace, monospace; }
 .badge-name { font-weight: 600; }
 .badge-note { color: var(--ink-soft); font-size: .8rem; margin-top: .15rem; }
+.tier { background: white; border: 1px solid var(--rule); border-top: 6px solid var(--tier-c); border-radius: 12px; padding: 1.25rem 1.5rem 1.5rem; margin-bottom: 1.5rem; }
+.tier-set { --tier-c: #2d5016; --tier-soft: #d9ead3; }
+.tier-pick { --tier-c: #b08d00; --tier-soft: #fff2cc; }
+.tier-open { --tier-c: #5b4a85; --tier-soft: #d9d2e9; }
+.tier-head { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.tier-label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: white; background: var(--tier-c); padding: .3rem .7rem; border-radius: 999px; white-space: nowrap; }
+.tier-head h3 { margin: 0; font-size: 1.25rem; }
+.tier-credits { margin-left: auto; font-family: ui-monospace, monospace; font-weight: 700; color: var(--tier-c); font-size: 1.05rem; white-space: nowrap; }
+.tier-desc { color: var(--ink-soft); font-size: .92rem; margin: .5rem 0 1.25rem; }
+.medal-grid { display: flex; flex-wrap: wrap; gap: 1.25rem .8rem; }
+.medal-item { width: 118px; text-align: center; }
+.medal { width: 88px; height: 88px; margin: 0 auto; border-radius: 50%; background: var(--tier-soft); border: 4px solid var(--tier-c); display: flex; align-items: center; justify-content: center; font-size: 2.1rem; position: relative; }
+.medal::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; border: 2px dashed rgba(255,255,255,.95); }
+.medal .mult { position: absolute; bottom: -7px; right: -7px; background: var(--tier-c); color: white; border-radius: 999px; font-size: .72rem; font-weight: 800; padding: .08rem .42rem; border: 2px solid white; font-family: ui-monospace, monospace; z-index: 2; }
+.medal-name { font-size: .8rem; font-weight: 700; line-height: 1.25; margin-top: .5rem; }
+.medal-note { font-size: .7rem; color: var(--ink-soft); line-height: 1.35; margin-top: .15rem; }
+.medal-item details { margin-top: .3rem; }
+.medal-item summary { font-size: .72rem; color: var(--tier-c); font-weight: 700; cursor: pointer; }
+.medal-item .mini-menu { font-size: .72rem; color: var(--ink-soft); margin-top: .25rem; line-height: 1.45; }
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+@media (max-width: 800px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature { border: 1.5px solid var(--tier-c); border-radius: 12px; padding: 1rem; background: #fffdf2; display: flex; gap: 1rem; align-items: flex-start; }
+.feature .medal { flex-shrink: 0; }
+.feature h4 { margin: .1rem 0 .15rem; font-size: 1.02rem; }
+.feature .fdesc { font-size: .82rem; color: var(--ink-soft); margin: 0 0 .55rem; }
+.menu-chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+.chip { background: var(--tier-soft); color: #5c4a00; border: 1px solid rgba(0,0,0,.08); font-size: .72rem; font-weight: 600; padding: .18rem .5rem; border-radius: 999px; }
+.ghost .medal { border-style: dashed; background: white; }
+.ghost .medal::after { border: none; }
+.tier-note { background: #f6f4fa; border-left: 4px solid var(--tier-c); border-radius: 4px; padding: .6rem .9rem; font-size: .85rem; color: var(--ink-soft); margin-top: 1.25rem; }
+.bonus-row-label { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--tier-c); margin: 1.25rem 0 .75rem; }
+details.fine-print { margin-top: 1.75rem; }
+details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
+.fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .why-pillar, .why-visual, .badge-family, .req-stat { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
 <noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
@@ -727,7 +761,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <section id="requirements" class="major tab-panel">
   <h2>Graduation Requirements &mdash; A Badging System</h2>
-  <p class="section-intro">The afternoon is not electives bolted onto a school day &mdash; it is where a large share of our graduation requirements live. Instead of traditional seat-time distribution requirements, students earn <strong>badges</strong>. A badge is earned by completing an experience and its single concrete deliverable (pass/fail). Each badge stamps one credit on the student's passport, and the passport &mdash; not a transcript of seat hours &mdash; is the record of what a graduate has actually done. Badging is our updated way of describing distribution requirements: the structure guarantees breadth (every graduate reads, builds, manages money, makes art, explores careers, and leads something real), while the menus inside each badge preserve genuine student choice.</p>
+  <p class="section-intro">The afternoon is not electives bolted onto a school day &mdash; it is where a large share of our graduation requirements live. Instead of traditional seat-time distribution requirements, students earn <strong>badges</strong>. A badge is earned by completing an experience and its single concrete deliverable (pass/fail). Each badge stamps one credit on the student's passport, and the passport &mdash; not a transcript of seat hours &mdash; is the record of what a graduate has actually done. Badging is our updated way of describing distribution requirements: the structure guarantees breadth (every graduate reads, builds, manages money, makes art, explores careers, and leads something real), while the menus inside each badge preserve genuine student choice. Every badge below sits in one of three tiers: <strong>badges everyone earns</strong>, <strong>badges where you pick the flavor</strong>, and <strong>open slots that are totally yours</strong>.</p>
 
   <div class="req-math">
     <div class="req-stat">
@@ -747,6 +781,80 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     </div>
   </div>
 
+<section class="tier tier-set">
+  <div class="tier-head"><span class="tier-label">No choice</span><h3>Everyone earns these</h3><span class="tier-credits">15 credits</span></div>
+  <p class="tier-desc">The same badges for every graduate &mdash; the floor we promise. The PSL four are grade-locked so the college-and-career ladder happens on time.</p>
+  <div class="medal-grid">
+    <div class="medal-item"><div class="medal">&#128218;<span class="mult">&times;4</span></div><div class="medal-name">Book Club</div><div class="medal-note">One per year &middot; A/B</div></div>
+    <div class="medal-item"><div class="medal">&#128170;</div><div class="medal-name">Personal Fitness</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item"><div class="medal">&#128181;</div><div class="medal-name">Personal Finance 1</div><div class="medal-note">9th&ndash;10th &middot; A/B</div></div>
+    <div class="medal-item"><div class="medal">&#128200;</div><div class="medal-name">Personal Finance 2</div><div class="medal-note">By 12th &middot; A/B</div></div>
+    <div class="medal-item"><div class="medal">&#128499;&#65039;</div><div class="medal-name">Civic Engagement</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item"><div class="medal">&#10084;&#65039;</div><div class="medal-name">Sexual Health</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item"><div class="medal">&#129517;</div><div class="medal-name">Career Exposure</div><div class="medal-note">9th &middot; PSL</div></div>
+    <div class="medal-item"><div class="medal">&#127891;</div><div class="medal-name">College Knowledge</div><div class="medal-note">10th &middot; PSL</div></div>
+    <div class="medal-item"><div class="medal">&#128221;</div><div class="medal-name">College Applications</div><div class="medal-note">11th&ndash;12th &middot; PSL</div></div>
+    <div class="medal-item"><div class="medal">&#128640;</div><div class="medal-name">Career Plans</div><div class="medal-note">12th &middot; PSL</div></div>
+    <div class="medal-item"><div class="medal">&#9881;&#65039;</div><div class="medal-name">Engineering 1</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item"><div class="medal">&#128220;</div><div class="medal-name">History Research Paper</div><div class="medal-note">A/B</div></div>
+  </div>
+</section>
+
+<section class="tier tier-pick">
+  <div class="tier-head"><span class="tier-label">Some choice</span><h3>Required &mdash; but you pick the flavor</h3><span class="tier-credits">16 credits</span></div>
+  <p class="tier-desc">The badge is required; the way you earn it is up to you. The centerpiece is the career ladder: sample the fields that interest you, then go deep in one.</p>
+  <div class="feature-grid">
+    <div class="feature">
+      <div class="medal">&#128270;<span class="mult">&times;4</span></div>
+      <div>
+        <h4>Career Introduction</h4>
+        <p class="fdesc">Four C-block credits. Get your first real taste of career fields that interest you.</p>
+        <div class="menu-chips"><span class="chip">Healthcare 1</span><span class="chip">Green Careers 1</span><span class="chip">Python Post (Journalism)</span><span class="chip">Mental Health 1</span><span class="chip">Debate 1</span><span class="chip">Student Government</span><span class="chip">Moot Court / Law 1</span></div>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="medal">&#127919;<span class="mult">&times;4</span></div>
+      <div>
+        <h4>Career Deep Dive</h4>
+        <p class="fdesc">Four C-block credits. Go deep in one field that excites you &mdash; on campus or with a partner.</p>
+        <div class="menu-chips"><span class="chip">Healthcare 2</span><span class="chip">Green Careers 2</span><span class="chip">Python Post (Editors)</span><span class="chip">Mental Health 2</span><span class="chip">Software Dev w/ AI</span><span class="chip">IT Certification</span><span class="chip">Culinary</span><span class="chip">Rocking the Boat</span><span class="chip">Skilled Trades</span><span class="chip">Automotive</span><span class="chip">Engineering 2</span><span class="chip">Healthcare Internship</span><span class="chip">Flex Job</span><span class="chip">Careerwise</span><span class="chip">College NOW</span><span class="chip">ELP</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="medal-grid">
+    <div class="medal-item"><div class="medal">&#129367;</div><div class="medal-name">Nutrition &amp; Self-Care</div><div class="medal-note">A/B</div><details><summary>3 options</summary><div class="mini-menu">Nutrition 1 &middot; Cooking 1 &middot; Baking 1</div></details></div>
+    <div class="medal-item"><div class="medal">&#128300;</div><div class="medal-name">Science Experiment</div><div class="medal-note">A/B</div><details><summary>2 options</summary><div class="mini-menu">Biology &middot; Chemistry</div></details></div>
+    <div class="medal-item"><div class="medal">&#127917;<span class="mult">&times;4</span></div><div class="medal-name">Arts Introduction</div><div class="medal-note">One per year &middot; A/B</div><details><summary>4 options</summary><div class="mini-menu">Dance &middot; Art &middot; Music &middot; Theater</div></details></div>
+    <div class="medal-item"><div class="medal">&#127939;</div><div class="medal-name">Movement</div><div class="medal-note">A/B</div><details><summary>4 options</summary><div class="mini-menu">Fitness &middot; Sports &middot; Swimming &middot; Dance</div></details></div>
+    <div class="medal-item"><div class="medal">&#127775;</div><div class="medal-name">Leadership Deep Dive</div><div class="medal-note">C block</div><details><summary>2 options</summary><div class="mini-menu">Community Service Project &middot; Small Business / Entrepreneurship</div></details></div>
+  </div>
+</section>
+
+<section class="tier tier-open">
+  <div class="tier-head"><span class="tier-label">Total choice</span><h3>Wide open</h3><span class="tier-credits">5 credits</span></div>
+  <p class="tier-desc">Five slots with no requirement attached &mdash; two A/B and three C. Repeat something you loved, try something new, or chase a bonus badge.</p>
+  <div class="medal-grid">
+    <div class="medal-item ghost"><div class="medal">&#10133;</div><div class="medal-name">Open Slot</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item ghost"><div class="medal">&#10133;</div><div class="medal-name">Open Slot</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item ghost"><div class="medal">&#10133;</div><div class="medal-name">Open Slot</div><div class="medal-note">C</div></div>
+    <div class="medal-item ghost"><div class="medal">&#10133;</div><div class="medal-name">Open Slot</div><div class="medal-note">C</div></div>
+    <div class="medal-item ghost"><div class="medal">&#10133;</div><div class="medal-name">Open Slot</div><div class="medal-note">C</div></div>
+  </div>
+  <div class="bonus-row-label">Bonus badges to chase</div>
+  <div class="medal-grid">
+    <div class="medal-item"><div class="medal">&#127760;</div><div class="medal-name">Foreign Language</div><div class="medal-note">C</div></div>
+    <div class="medal-item"><div class="medal">&#127946;</div><div class="medal-name">Swimming</div><div class="medal-note">C &middot; can count as Movement</div></div>
+    <div class="medal-item"><div class="medal">&#9999;&#65039;</div><div class="medal-name">Poetry</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item"><div class="medal">&#128247;</div><div class="medal-name">Photography / Film</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item"><div class="medal">&#127795;</div><div class="medal-name">Enjoying Nature</div><div class="medal-note">A/B</div></div>
+    <div class="medal-item"><div class="medal">&#128509;</div><div class="medal-name">Exploring NYC</div><div class="medal-note">A/B</div></div>
+  </div>
+  <div class="tier-note"><strong>Heads up:</strong> students placed in AP Recitations, Math Intervention, or Mandated Study Hall use open slots for those supports &mdash; they're assigned by the academic team, not chosen.</div>
+</section>
+
+<details class="fine-print">
+  <summary>The fine print &mdash; full badge tables (credits, blocks, grade locks, complete menus)</summary>
+  <div class="fine-print-body">
 <section class="badge-family">
   <header>
     <h3>Academic Skills <span class="family-credits">4 required credits</span></h3>
@@ -846,6 +954,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     </tbody>
   </table>
 </section>
+  </div>
+</details>
 </section>
 
 
