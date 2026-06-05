@@ -50,11 +50,7 @@ section.major > p.section-intro { color: var(--ink-soft); font-size: 1rem; margi
 .explanation { margin: 0 0 .75rem; color: var(--ink-soft); font-size: .95rem; }
 .comp-list { margin: 0; padding: 0; list-style: none; }
 .comp-list li { padding: .4rem .6rem .4rem 1.6rem; border-bottom: 1px dotted var(--rule); position: relative; font-size: .95rem; }
-.comp-list li::before { content: "\25CB"; position: absolute; left: .4rem; color: #aaa; }
-.comp-list li.essential { background: var(--accent-soft); border-radius: 4px; border-bottom: 1px solid rgba(45,80,22,.15); font-weight: 500; }
-.comp-list li.essential::before { content: "\2605"; color: var(--accent); }
-.legend { font-size: .85rem; color: var(--ink-soft); margin: .75rem 0 0; padding: .5rem .75rem; background: white; border: 1px dashed var(--rule); border-radius: 6px; }
-.legend .essential-swatch { display: inline-block; width: 1em; height: 1em; background: var(--accent-soft); border-radius: 2px; vertical-align: middle; margin-right: .25rem; }
+.comp-list li::before { content: "\2713"; position: absolute; left: .4rem; color: var(--accent); font-weight: 700; }
 .schedule-option { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
 .schedule-option.chosen { border: 2px solid var(--chosen); box-shadow: 0 0 0 4px rgba(255, 217, 102, .15); }
 .schedule-option h3 { margin: 0 0 .75rem; font-size: 1.2rem; }
@@ -99,6 +95,26 @@ table.exp-table .num { text-align: right; font-family: ui-monospace, monospace; 
 .badge-ext { background: #fce5cd; color: #783f04; }
 .badge-block-ab { background: var(--gold); color: #5c4a00; }
 .badge-block-c { background: var(--purple); color: #3d2c5c; }
+.badge-req { background: var(--accent-soft); color: var(--accent); }
+.badge-opt { background: var(--gray); color: var(--ink-soft); }
+.badge-auto { background: var(--pink); color: #6b3a4e; }
+.req-math { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+@media (max-width: 800px) { .req-math { grid-template-columns: 1fr; } }
+.req-stat { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.25rem; text-align: center; }
+.req-stat .big { font-size: 2rem; font-weight: 700; color: var(--accent); font-family: ui-monospace, monospace; }
+.req-stat .lbl { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); margin-top: .15rem; font-weight: 600; }
+.req-stat .sub { font-size: .8rem; color: var(--ink-soft); margin-top: .35rem; }
+.badge-family { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+.badge-family > header { border-bottom: 1px solid var(--rule); padding-bottom: .6rem; margin-bottom: .75rem; }
+.badge-family h3 { margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.family-credits { background: var(--accent); color: white; font-size: .7rem; padding: .15rem .55rem; border-radius: 999px; font-weight: 600; letter-spacing: .03em; }
+.family-desc { color: var(--ink-soft); font-size: .9rem; margin: .35rem 0 0; }
+table.badge-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+table.badge-table th, table.badge-table td { border-bottom: 1px solid var(--rule); padding: .5rem .6rem; text-align: left; vertical-align: top; }
+table.badge-table th { background: #f5f5f0; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+table.badge-table .num { text-align: center; font-family: ui-monospace, monospace; }
+.badge-name { font-weight: 600; }
+.badge-note { color: var(--ink-soft); font-size: .8rem; margin-top: .15rem; }
 .sprint-block { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
 .sprint-heading { display: flex; align-items: center; gap: .75rem; border-bottom: 1px solid var(--rule); padding-bottom: .6rem; margin-bottom: .75rem; }
 .sprint-heading h3 { margin: 0; font-size: 1.15rem; }
@@ -108,7 +124,7 @@ ol.sprint-q { margin: 0; padding-left: 1.4rem; }
 ol.sprint-q li { padding: .4rem 0; font-size: .98rem; line-height: 1.55; border-bottom: 1px dotted var(--rule); }
 ol.sprint-q li:last-child { border-bottom: none; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .sprint-block, .why-pillar, .why-visual { break-inside: avoid; } nav.toc { break-after: page; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .sprint-block, .why-pillar, .why-visual, .badge-family, .req-stat { break-inside: avoid; } nav.toc { break-after: page; } }
 </style>
 </head>
 <body>
@@ -116,16 +132,17 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <header class="top">
   <h1>CSH High School Redesign &mdash; Design Sprint 2 Pre-Read</h1>
-  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule structures we considered (and the one we chose), the experiences that will populate the afternoon blocks, and the questions we will work through together in Sprint 2.</p>
+  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule structures we considered (and the one we chose), the experiences that will populate the afternoon blocks, the badge-based graduation requirements that tie them together, and the questions we will work through together in Sprint 2.</p>
 </header>
 
 <nav class="toc">
   <h2>What is in here</h2>
   <ol>
     <li><a href="#why">Why we are redesigning</a> &mdash; the unchanged mission, the changed world, and the morning / afternoon split that follows</li>
-    <li><a href="#competencies">Core Competencies</a> &mdash; six domains, what is essential vs. aspirational, and the SCORE value tied to each</li>
+    <li><a href="#competencies">Core Competencies</a> &mdash; five revised domains, every competency a commitment, and the SCORE value tied to each</li>
     <li><a href="#schedules">Schedule Options</a> &mdash; four structures considered, with two teacher-prep distributions for each, and the one we chose</li>
     <li><a href="#experiences">PM Experience Blocks</a> &mdash; 59 experiences across five buckets that would fill A, B, and C</li>
+    <li><a href="#requirements">Graduation Requirements &mdash; a badging system</a> &mdash; 36 afternoon credit slots over four years, 31 earned through required badges in six families, 5 open</li>
     <li><a href="#sprint2">Design Sprint 2 &mdash; what we will discuss</a></li>
   </ol>
 </nav>
@@ -193,10 +210,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <section id="competencies" class="major">
   <h2>2. Core Competencies</h2>
-  <p class="section-intro">Six domains. Domains 1&ndash;5 are about getting to economic freedom. Domain 6 is what economic freedom lets you enjoy. Green-shaded competencies (&#9733;) are the most essential &mdash; the ones every graduate must demonstrate. Unshaded competencies are still goals, but live behind the essentials in priority. Each domain is paired with the SCORE value it most depends on.</p>
-  <div class="legend">
-    <span class="essential-swatch"></span><strong>&#9733; Essential</strong> &mdash; every graduate must demonstrate this. &nbsp;&nbsp; &#9675; Aspirational &mdash; still a goal, but second-tier priority.
-  </div>
+  <p class="section-intro">Five domains, all in service of the same destination: economic freedom. These are the revised lists coming out of Design Sprint 2, trimmed from the earlier six-domain draft. The old sixth domain, <em>Enjoying and Enriching Life</em>, has not disappeared &mdash; it is woven into <em>Caring for Self and Others</em> and <em>Exploring Identity and Purpose</em>, and it shows up concretely as required arts, movement, and enrichment badges in the graduation requirements (Section 5). The essential-vs.-aspirational split is gone: every competency below (&#10003;) is a commitment every graduate must demonstrate. Each domain is paired with the SCORE value it most depends on.</p>
   
 <article class="domain">
   <header>
@@ -208,16 +222,12 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   </header>
   <p class="explanation">Students should graduate with the skills, habits, and reference points needed to enter the world of work with confidence. This domain is not only about technical skill; it is about experiencing real or workplace-analog settings so that graduates can say, &#x27;I have done something like this before,&#x27; and know how to approach unfamiliar work challenges.</p>
   <ul class="comp-list">
-    <li class="essential">Communicates clearly in professional settings, orally and in writing</li>
-<li class="essential">Completes authentic work experiences such as internships, client projects, or career related programs.</li>
-<li class="essential">Demonstrates professional habits, including punctuality, reliability, preparation, follow-through, and communication</li>
-<li class="essential">Uses feedback to improve performance and meet clear standards</li>
-<li>Builds professional networks and manages their brand socially and digitally (resume, linkedin, finding mentors, maintaining relationships).</li>
-<li>Collaborates effectively with peers, supervisors, and clients</li>
-<li>Develops significant domain-specific knowledge, skill and experience in at least one career field.</li>
-<li>Develops the confidence to enter unfamiliar work settings and &quot;read&quot; the culture.</li>
-<li>Navigates common workplace expectations, norms, and responsibilities</li>
-
+    <li>Communicates clearly in professional settings, orally and in writing</li>
+<li>Collaborates effectively with peers, supervisors, and clients, building a network of mentors and contacts along the way</li>
+<li>Uses feedback to improve performance and meet clear standards</li>
+<li>Demonstrates professional habits by correctly interpreting standards, including punctuality, dress code, communication, preparation, and follow-through</li>
+<li>Manages their brand socially and digitally (resume, LinkedIn, finding mentors, maintaining relationships)</li>
+<li>Develops significant domain-specific knowledge, skill, and experience in at least one career field</li>
   </ul>
 </article>
 
@@ -231,15 +241,10 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   </header>
   <p class="explanation">Students need both knowledge and the ability to use it. Reasoning cannot happen without facts, concepts, and disciplinary knowledge, and knowledge matters most when students can apply it to explain, analyze, interpret, and solve problems.</p>
   <ul class="comp-list">
-    <li class="essential">Applies disciplinary knowledge to solve problems and make sense of the world</li>
-<li class="essential">Builds a strong foundation of knowledge in mathematics, science, history, literature, economics, civics, and science and technology, and an understanding of the current state of those fields. (Well enough to gain admission to and engage confidentally in college)</li>
-<li class="essential">Interprets and constructs clear, evidence-based explanations and arguments</li>
-<li>Reads and accurately interprets text.</li>
-<li>Synthesizes information from multiple sources and perspectives</li>
-<li>Uses historical and social knowledge to interpret the past and present</li>
-<li>Uses mathematical reasoning to analyze quantitative problems and real situations</li>
-<li>Uses philosophical, rhetorical, and analytical tools to examine ideas, texts, and claims</li>
-
+    <li>Builds a strong foundation of knowledge in mathematics, science, history, literature, economics, civics, and science and technology, and an understanding of the current state of those fields &mdash; well enough to gain admission to and engage confidently in college</li>
+<li>Draws on knowledge from across different sources and even classes to explain phenomena in the world and to build schema</li>
+<li>Interprets and constructs clear, evidence-based explanations and arguments</li>
+<li>Reads and accurately interprets text and other media</li>
   </ul>
 </article>
 
@@ -253,13 +258,11 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   </header>
   <p class="explanation">Students should not leave school waiting for directions. They should see learning as a tool for solving problems, develop the habit of taking initiative, and build the persistence to keep working when a solution is not immediately obvious. This matters for academic life, work, entrepreneurship, and a rapidly changing economy.</p>
   <ul class="comp-list">
-    <li class="essential">Learns new tools (including AI), resources, and even bureaucratic systems in service of solving real problems.</li>
-<li class="essential">Persists through difficulty, ambiguity, and setbacks</li>
-<li class="essential">Takes initiative to solve problemsin academic, professional, and personal contexts instead of waiting passively for instructions</li>
-<li>Applies entrepreneurial thinking to opportunities, needs, and constraints</li>
-<li>Breaks complex challenges into manageable steps</li>
+    <li>Takes initiative to solve problems in academic, professional, and personal contexts instead of waiting passively for instructions</li>
+<li>Persists through difficulty, ambiguity, and setbacks</li>
+<li>Knows how to break complex challenges into manageable steps</li>
+<li>Learns new tools (including AI), resources, and even bureaucratic systems in service of solving real problems</li>
 <li>Generates, tests, and revises solutions through iteration</li>
-
   </ul>
 </article>
 
@@ -273,15 +276,12 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   </header>
   <p class="explanation">A healthy life requires more than academic or economic success. Students should leave high school with the habits, knowledge, and relationships needed to care for their physical, emotional, and financial well-being, and to participate meaningfully in communities that enrich and sustain life.</p>
   <ul class="comp-list">
-    <li class="essential">Maintains habits that support physical health and long-term well-being</li>
-<li class="essential">Practices basic financial habits and decision-making for adult life</li>
+    <li>Recognizes, manages, and communicates about emotional needs in healthy ways</li>
+<li>Maintains habits that support physical health and long-term well-being</li>
+<li>Practices basic financial habits and decision-making for adult life</li>
 <li>Builds and sustains respectful, supportive relationships</li>
-<li>Contributes to families, teams, and communities with care and responsibility</li>
-<li>Develops and maintains a sense of belonging within a network or community</li>
-<li>Recognizes, manages, and communicates about emotional needs in healthy ways</li>
+<li>Develops and maintains a sense of belonging within community, and actively contributes to that community</li>
 <li>Understands how to seek help, access resources, and navigate common life systems</li>
-<li>Understands that connection, mutual support, and community are part of a healthy life</li>
-
   </ul>
 </article>
 
@@ -295,35 +295,10 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   </header>
   <p class="explanation">Students do not need to have a final answer to &#x27;Who am I?&#x27; by age eighteen. They do need tools, language, and habits for exploring identity, joy, purpose, and motivation over time. This domain is about beginning a lifelong process of self-understanding rather than finishing it.</p>
   <ul class="comp-list">
-    <li class="essential">Begins to articulate values, commitments, and sources of purpose</li>
-<li class="essential">Explore how their identity intersects with professional, economic and social success.</li>
-<li>Develops habits of reflection that can continue beyond high school</li>
-<li>Examines which parts of identity feel central, meaningful, or personally powerful</li>
-<li>Explores how dimensions such as culture, ethnicity, language, geography, gender, and sexuality may or may not matter in their self-understanding</li>
-<li>Reflects on the identities, affiliations, and experiences that shape who they are</li>
-<li>Reflects on what motivates effort, commitment, and ambition</li>
-
-  </ul>
-</article>
-
-<article class="domain">
-  <header>
-    <div class="domain-num">6</div>
-    <div>
-      <h3>Enjoying and Enriching Life</h3>
-      <div class="score">SCORE: <span>Self Awareness</span></div>
-    </div>
-  </header>
-  <p class="explanation">Some experiences are worth cultivating because they enlarge human life. Exposure to art, music, literature, nature, and the richness of the city can deepen joy, curiosity, appreciation, and a sense of what makes life worth living. This domain could remain a distinct sixth domain or be woven into the five core domains.</p>
-  <ul class="comp-list">
-    <li class="essential">Develops interests, hobbies, and practices that create joy outside of work</li>
-<li>Appreciates art, music, literature, sports and other forms of human expression</li>
-<li>Builds habits of curiosity and participation in the cultural life around them</li>
-<li>Experiences nature as a source of beauty, reflection, and renewal</li>
-<li>Explores New York City as a dynamic cultural and civic environment</li>
-<li>Explores what brings joy, meaning, and fulfillment</li>
-<li>Recognizes that pleasure, wonder, and aesthetic appreciation are part of a full life</li>
-
+    <li>Develops habits of reflection that can continue beyond high school, including on elements of identity such as personality traits, culture, ethnicity, class, gender, sexuality, and community affiliations</li>
+<li>Begins to articulate values, commitments, and sources of purpose and meaning</li>
+<li>Explores what makes them happy and gives them pleasure, including arts, music, travel, sports, hobbies, and civic engagement</li>
+<li>Explores how their identity intersects with professional, economic, and social success</li>
   </ul>
 </article>
 </section>
@@ -756,9 +731,132 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </tbody></table></section>
 </section>
 
+<section id="requirements" class="major">
+  <h2>5. Graduation Requirements &mdash; A Badging System</h2>
+  <p class="section-intro">The afternoon is not electives bolted onto a school day &mdash; it is where a large share of our graduation requirements live. Instead of traditional seat-time distribution requirements, students earn <strong>badges</strong>. A badge is earned by completing an experience and its single concrete deliverable (pass/fail). Each badge stamps one credit on the student's passport, and the passport &mdash; not a transcript of seat hours &mdash; is the record of what a graduate has actually done. Badging is our updated way of describing distribution requirements: the structure guarantees breadth (every graduate reads, builds, manages money, makes art, explores careers, and leads something real), while the menus inside each badge preserve genuine student choice.</p>
+
+  <div class="req-math">
+    <div class="req-stat">
+      <div class="big">36</div>
+      <div class="lbl">Credit slots over 4 years</div>
+      <div class="sub">24 in A/B blocks (meet twice a week) + 12 in C blocks (meet once) &mdash; three experiences per trimester, twelve trimesters</div>
+    </div>
+    <div class="req-stat">
+      <div class="big">31</div>
+      <div class="lbl">Required badge credits</div>
+      <div class="sub">22 A/B + 9 C, spread across the six badge families below</div>
+    </div>
+    <div class="req-stat">
+      <div class="big">5</div>
+      <div class="lbl">Open elective slots</div>
+      <div class="sub">2 A/B + 3 C &mdash; free choice, though auto-assigned supports (AP recitations, interventions, study hall) draw from these for some students</div>
+    </div>
+  </div>
+
+<section class="badge-family">
+  <header>
+    <h3>Academic Skills <span class="family-credits">4 required credits</span></h3>
+    <p class="family-desc">The reading habit every graduate needs, plus the support structures the academic team assigns where they're needed. Auto-assigned placements are not student choices and draw on open slots.</p>
+  </header>
+  <table class="badge-table">
+    <thead><tr><th>Badge</th><th>Type</th><th class="num">Credits</th><th class="num">Block</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="badge-name">Book Club / Reading Intervention</div><div class="badge-note">Levelled reading groups; very low readers placed in reading intervention</div></td><td><span class="badge badge-req">Required</span></td><td class="num">4</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">One per year, four total across 9&ndash;12</td></tr>
+      <tr><td><div class="badge-name">AP Recitations</div><div class="badge-note">Paired recitations alternate day-by-day within one A/B slot</div></td><td><span class="badge badge-auto">Auto-assigned</span></td><td class="num">&mdash;</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Required for students enrolled in select AP courses</td></tr>
+      <tr><td><div class="badge-name">Mandated Study Hall</div></td><td><span class="badge badge-auto">Auto-assigned</span></td><td class="num">&mdash;</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Placed by the academic team for attendance or performance; not a student choice</td></tr>
+      <tr><td><div class="badge-name">Math Intervention</div><div class="badge-note">Pre-algebra / algebra software-assisted small-group support</div></td><td><span class="badge badge-auto">Auto-assigned</span></td><td class="num">&mdash;</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Placed by the academic team for students who need it</td></tr>
+      <tr><td><div class="badge-name">Foreign Language</div><div class="badge-note">Digital language learning</div></td><td><span class="badge badge-opt">Optional</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-c">C</span></td><td class="badge-note">Free choice; counts toward open elective credits</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="badge-family">
+  <header>
+    <h3>Life Skills <span class="family-credits">6 required credits</span></h3>
+    <p class="family-desc">The adult-life competencies in Caring for Self and Others, made concrete: every graduate leaves knowing how to care for their body, feed themselves, manage and grow money, navigate government, and sustain healthy relationships.</p>
+  </header>
+  <table class="badge-table">
+    <thead><tr><th>Badge</th><th>Type</th><th class="num">Credits</th><th class="num">Block</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="badge-name">Personal Fitness</div><div class="badge-note">Learn how to care for yourself physically</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+      <tr><td><div class="badge-name">Nutrition &amp; Self-Care</div><div class="badge-note">Healthy nutrition, sleep, exercise, and stress management</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Choose one: Nutrition 1, Cooking 1, or Baking 1</td></tr>
+      <tr><td><div class="badge-name">Personal Finance 1</div><div class="badge-note">Paychecks, taxes, bank accounts, credit cards, loans, health insurance</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Must complete in 9th or 10th grade</td></tr>
+      <tr><td><div class="badge-name">Personal Finance 2</div><div class="badge-note">Investing and growing money: securities, real estate, retirement accounts, pensions</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Must complete by end of 12th grade</td></tr>
+      <tr><td><div class="badge-name">Civic Engagement &amp; Navigating Government</div><div class="badge-note">Register to vote; access and advocate with government and public services</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+      <tr><td><div class="badge-name">Sexual Health</div><div class="badge-note">Healthy sexual and romantic relationships</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+      <tr><td><div class="badge-name">Swimming</div><div class="badge-note">Learn to swim</div></td><td><span class="badge badge-opt">Optional</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-c">C</span></td><td class="badge-note">Counts toward the Movement badge if not otherwise satisfied</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="badge-family">
+  <header>
+    <h3>Leadership <span class="family-credits">1 required credit</span></h3>
+    <p class="family-desc">Turn ideas into impact by designing and executing a real project that serves your community or builds something from the ground up.</p>
+  </header>
+  <table class="badge-table">
+    <thead><tr><th>Badge</th><th>Type</th><th class="num">Credits</th><th class="num">Block</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="badge-name">Leadership Deep Dive</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-c">C</span></td><td class="badge-note">Choose one: Community Service Project, or Small Business / Entrepreneurship</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="badge-family">
+  <header>
+    <h3>College &amp; Career [PSL] <span class="family-credits">4 required credits</span></h3>
+    <p class="family-desc">The PSL sequence is grade-locked &mdash; one badge per year, building from career exposure to a concrete post-graduation plan.</p>
+  </header>
+  <table class="badge-table">
+    <thead><tr><th>Badge</th><th>Type</th><th class="num">Credits</th><th class="num">Block</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="badge-name">Career Exposure</div><div class="badge-note">Introduction to career pathways</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">9th grade</td></tr>
+      <tr><td><div class="badge-name">College Knowledge</div><div class="badge-note">Understanding college options and process</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">10th grade</td></tr>
+      <tr><td><div class="badge-name">College Applications</div><div class="badge-note">Building and submitting college applications</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">11th grade or fall of 12th (assigned by PSL)</td></tr>
+      <tr><td><div class="badge-name">Career Plans</div><div class="badge-note">Post-graduation career planning</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">12th grade</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="badge-family">
+  <header>
+    <h3>Career Exploration <span class="family-credits">11 required credits</span></h3>
+    <p class="family-desc">The heart of the Doing afternoon: every graduate runs a real experiment, engineers something, writes serious research, samples career fields that interest them, and then goes deep in one.</p>
+  </header>
+  <table class="badge-table">
+    <thead><tr><th>Badge</th><th>Type</th><th class="num">Credits</th><th class="num">Block</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="badge-name">Science Experiment</div><div class="badge-note">Hands-on lab science experience</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Choose one: Biology Experiment or Chemistry Experiment</td></tr>
+      <tr><td><div class="badge-name">Engineering 1</div><div class="badge-note">Introduction to engineering and design thinking</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+      <tr><td><div class="badge-name">History Research Paper</div><div class="badge-note">Extended historical research and writing project</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+      <tr><td><div class="badge-name">Career Introduction</div><div class="badge-note">Get your first real taste of career fields through hands-on, introductory experiences in industries that interest you</div></td><td><span class="badge badge-req">Required</span></td><td class="num">4</td><td class="num"><span class="badge badge-block-c">C</span></td><td class="badge-note">Choose from: Healthcare Careers 1, Hydroponics/Green Careers 1, Python Post 1 (Journalism), Mental Health Careers 1, Public Speaking / Debate 1, Student Government 1, Moot Court / Intro to Law 1</td></tr>
+      <tr><td><div class="badge-name">Career Deep Dive</div><div class="badge-note">Go deeper into a career field that excites you through hands-on, extended exploration of a specific industry or skill</div></td><td><span class="badge badge-req">Required</span></td><td class="num">4</td><td class="num"><span class="badge badge-block-c">C</span></td><td class="badge-note">Choose from: Healthcare Careers 2, Hydroponics/Green Careers 2, Python Post 2 (Editors), Mental Health Careers 2, Software Development with AI, IT Certification, Culinary Careers, Rocking the Boat, Skilled Trade Intro, Automotive Intro, Engineering 2, Healthcare Internship, Flex Job (application only), Careerwise, College NOW, ELP</td></tr>
+      <tr><td><div class="badge-name">Poetry</div></td><td><span class="badge badge-opt">Optional</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+      <tr><td><div class="badge-name">Photography / Film</div></td><td><span class="badge badge-opt">Optional</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="badge-family">
+  <header>
+    <h3>Enjoyment &amp; Enrichment <span class="family-credits">5 required credits</span></h3>
+    <p class="family-desc">Where the old sixth competency domain lives on as concrete requirements: every graduate makes art every year and moves their body &mdash; and can choose to explore nature and the city beyond that.</p>
+  </header>
+  <table class="badge-table">
+    <thead><tr><th>Badge</th><th>Type</th><th class="num">Credits</th><th class="num">Block</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="badge-name">Arts Introduction</div></td><td><span class="badge badge-req">Required</span></td><td class="num">4</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">One per year, chosen from: Intro Dance, Intro Art, Intro Music, Intro Theater</td></tr>
+      <tr><td><div class="badge-name">Movement</div></td><td><span class="badge badge-req">Required</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note">Satisfied by Fitness, Sports, Swimming, or Dance</td></tr>
+      <tr><td><div class="badge-name">Enjoying Nature</div></td><td><span class="badge badge-opt">Optional</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+      <tr><td><div class="badge-name">Exploring NYC</div></td><td><span class="badge badge-opt">Optional</span></td><td class="num">1</td><td class="num"><span class="badge badge-block-ab">A/B</span></td><td class="badge-note"></td></tr>
+    </tbody>
+  </table>
+</section>
+</section>
+
 <section id="sprint2" class="major">
-  <h2>5. Design Sprint 2 &mdash; What We Will Discuss</h2>
-  <p class="section-intro">The four sections above are the pre-read. The questions below are what we will work through together in the room. Come with your reactions to the materials, but also with the people we will need to convince and the practical realities of our current staff in mind.</p>
+  <h2>6. Design Sprint 2 &mdash; What We Will Discuss</h2>
+  <p class="section-intro">The five sections above are the pre-read. The questions below are what we will work through together in the room. Come with your reactions to the materials, but also with the people we will need to convince and the practical realities of our current staff in mind.</p>
   <div class="sprint-block">
     <div class="sprint-heading"><span class="sprint-tag">AM</span><h3>Reacting to the design</h3></div>
     <ol class="sprint-q">
@@ -780,7 +878,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </section>
 
 <footer>
-  Pre-read prepared for the CSH HS Redesign Design Sprint 2 &middot; Comp Sci High &middot; May 2026
+  Pre-read prepared for the CSH HS Redesign Design Sprint 2 &middot; Comp Sci High &middot; May 2026 &middot; Competencies &amp; requirements revised June 2026
 </footer>
 
 </div>
