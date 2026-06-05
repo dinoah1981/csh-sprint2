@@ -168,11 +168,30 @@ table.badge-table .num { text-align: center; font-family: ui-monospace, monospac
 .success-card h3 { margin: 0 0 .5rem; font-size: 1.15rem; }
 .success-card ul { margin: 0; padding-left: 1.3rem; font-size: .92rem; }
 .success-card li { padding: .2rem 0; }
+.goal-strip { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; }
+.goal-strip h3 { margin: 0 0 .25rem; font-size: 1.15rem; }
+.goal-strip p.gs-intro { color: var(--ink-soft); font-size: .9rem; margin: 0 0 .5rem; }
+ol.goal-list { margin: .25rem 0 0; padding-left: 1.4rem; font-size: .95rem; }
+ol.goal-list li { padding: .2rem 0; }
+.timeline { position: relative; margin: 0 0 1.75rem; padding-left: 30px; }
+.timeline::before { content: ""; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 3px; background: var(--accent-soft); border-radius: 2px; }
+.tl-item { position: relative; margin-bottom: 1.1rem; }
+.tl-dot { position: absolute; left: -30px; top: .3rem; width: 15px; height: 15px; border-radius: 50%; background: white; border: 4px solid var(--accent); box-sizing: border-box; }
+.tl-card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: .9rem 1.1rem; }
+.tl-when { font-family: ui-monospace, monospace; font-size: .75rem; font-weight: 700; color: var(--accent); letter-spacing: .05em; text-transform: uppercase; }
+.tl-card h4 { margin: .15rem 0 .3rem; font-size: 1.02rem; }
+.tl-card p { margin: 0; font-size: .88rem; color: var(--ink-soft); }
+.tl-item.launch .tl-dot { background: var(--chosen); border-color: #b08d00; }
+.tl-item.launch .tl-card { border: 2px solid var(--chosen); }
+.build-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; }
+@media (max-width: 800px) { .build-strip { grid-template-columns: 1fr 1fr; } }
+.build-cat { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: .8rem .9rem; font-size: .8rem; color: var(--ink-soft); }
+.build-cat strong { display: block; font-size: .85rem; color: var(--ink); margin-bottom: .25rem; }
 details.fine-print { margin-top: 1.75rem; }
 details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
 .fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card, .partner, .success-card { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card, .partner, .success-card, .tl-card, .build-cat, .goal-strip { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
 <noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
@@ -181,7 +200,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <header class="top">
   <h1>CSH High School Redesign</h1>
-  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, the badge-based graduation requirements that fill the afternoon blocks, and the external partners who make the work real.</p>
+  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, the badge-based graduation requirements that fill the afternoon blocks, the external partners who make the work real, and the road to launch in September 2027.</p>
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Design sections">
@@ -190,6 +209,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   <button type="button" role="tab" data-tab="schedules" aria-selected="false">Schedule</button>
   <button type="button" role="tab" data-tab="requirements" aria-selected="false">Requirements</button>
   <button type="button" role="tab" data-tab="partners" aria-selected="false">Partners</button>
+  <button type="button" role="tab" data-tab="rollout" aria-selected="false">Rollout</button>
 </nav>
 
 
@@ -251,7 +271,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     <div class="citation-label">External evidence</div>
     <p><strong>The Burning Glass Institute &amp; aiEDU,</strong> <em>"Which Skills Matter Now? A Data-Driven Framework for K&ndash;12 in the Age of AI"</em> (February 2026). Analyzing AI's impact on 1,000 workforce skills and 140 high-school learning objectives, the report finds that <strong>roughly 70% of K&ndash;12 learning objectives will need to be taught differently</strong> in an AI-shaped economy. Three of its core themes line up directly with this redesign: skills with high automation exposure now demand <em>deeper</em> conceptual understanding (not less); every discipline contains skills that need new instructional approaches alongside skills that remain foundational; and traditional assessment must shift toward evaluating student thinking, reasoning, and judgment &mdash; not the polished outputs AI can generate. &rarr; <a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">burningglassinstitute.org/research/whichskillsmatternow</a></p>
   </aside>
-  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#requirements">Requirements</a> &middot; <a href="#partners">Partners</a></p>
+  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#requirements">Requirements</a> &middot; <a href="#partners">Partners</a> &middot; <a href="#rollout">Rollout</a></p>
 </section>
 
 <section id="competencies" class="major tab-panel">
@@ -679,6 +699,93 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   </aside>
 </section>
 
+<section id="rollout" class="major tab-panel">
+  <h2>Rollout &amp; Training Plan</h2>
+  <p class="section-intro">The model doesn't launch all at once. Pilots run during the 2026-27 school year, staff build capability checkpoint by checkpoint, and the full design opens in September 2027. This is the working arc &mdash; dates and details will keep firming up as we go.</p>
+
+  <div class="goal-strip">
+    <h3>What must be true by launch</h3>
+    <p class="gs-intro">Every checkpoint below serves some subset of these eight goals.</p>
+    <ol class="goal-list">
+      <li>Teachers are excited for the new HS design</li>
+      <li>Teachers understand the need for redesigning</li>
+      <li>Teachers understand the competencies and why they're a necessary level up from our existing graduate profile</li>
+      <li>Teachers know what we're piloting in 2026-27 and why</li>
+      <li>Teachers understand how class time will need to evolve in this new model</li>
+      <li>Teachers understand how afternoon experiences have to be planned and led differently from classes</li>
+      <li>Teachers understand how tech and AI will support this work</li>
+      <li>Students and families understand the new model, the badges, and how to choose experiences</li>
+    </ol>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-when">June 2026</div>
+        <h4>Orient</h4>
+        <p>Growth and AI sessions for all staff, including a first look at the final competencies. Pilots are confirmed &mdash; each with defined success metrics &mdash; and the competencies are locked so everything after builds on stable ground.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-when">August 2026</div>
+        <h4>Prepare the pilot year</h4>
+        <p>Planning for the New Design 101 &amp; 201, AI in the Classroom, and Future of the Economy / PSL training for all staff. Pilot teachers get a dedicated intensive &mdash; experience structure, pass/fail deliverable assessment, evidence collection &mdash; and the pilots are presented to the whole staff.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-when">November 2026</div>
+        <h4>Pilots live &mdash; first evidence</h4>
+        <p>First pilot share-out: early evidence and student work in front of the full staff. Planning and AI training continue, and leadership runs a mid-point review toward a preliminary list of what scales.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-when">February 2027</div>
+        <h4>From pilots to design</h4>
+        <p>Pilot results presented. The Experience Designers Workshop opens experience-building to everyone, anchored in the competencies and graduation requirements. The faculty decides the prep distribution question, and the first staffing conversations about 2027-28 roles begin.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-when">April 2027</div>
+        <h4>Build and choose</h4>
+        <p>Protected design-studio time to build experiences. The course catalogue is published, students elect their first experiences, partner agreements are signed, and the budget locks in the tools and time the launch needs.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-when">June 2027</div>
+        <h4>Lock the year</h4>
+        <p>The full picture: final master schedule, staffing, and advising model. Experiences are roughly 80% built, and the Schedule &amp; Staffing Deep Dive walks every teacher through how their year will actually work.</p>
+      </div>
+    </div>
+    <div class="tl-item launch">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-when">August 2027 &mdash; Launch Institute</div>
+        <h4>Dry-run everything, then open the doors</h4>
+        <p>A multi-day institute: experience dry-runs, advisory launch, schedule walk-throughs, applied AI support, a dedicated onboarding track for new hires, and family orientation &mdash; including every student's badge passport. September 2027: the new model is live.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin: 0 0 .6rem; font-size: 1.1rem;">What gets built along the way</h3>
+  <div class="build-strip">
+    <div class="build-cat"><strong>Software</strong>Intervention platforms, independent-study tools, AP support, and a student hub that tracks badges and powers advisory conferences.</div>
+    <div class="build-cat"><strong>Curriculum</strong>Experience templates and exemplars, book club and AP block structures, PSL modules 9&ndash;12, and structures for external experiences.</div>
+    <div class="build-cat"><strong>Policies &amp; practices</strong>Afternoon grading guidelines (pass/fail deliverables), a revised advising model, coaching and planning cadences, and feedback loops.</div>
+    <div class="build-cat"><strong>Logistics</strong>The master schedule, course catalogue, detailed staffing plan, and protocols for off-campus experiences.</div>
+  </div>
+</section>
+
 <footer>
   CSH High School Redesign &middot; Comp Sci High &middot; Revised June 2026
 </footer>
@@ -686,7 +793,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </div>
 <script>
 (function () {
-  var ids = ['why', 'competencies', 'schedules', 'requirements', 'partners'];
+  var ids = ['why', 'competencies', 'schedules', 'requirements', 'partners', 'rollout'];
   var buttons = document.querySelectorAll('nav.tabs button');
   function show(id) {
     if (ids.indexOf(id) === -1) { id = 'why'; }
