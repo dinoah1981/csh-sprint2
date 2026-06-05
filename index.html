@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSH HS Redesign &mdash; Design Sprint 2 Pre-Read</title>
+<title>CSH High School Redesign</title>
 <style>
 :root {
   --bg: #fafaf7; --ink: #1a1a1a; --ink-soft: #4a4a4a; --rule: #e2e2dc;
@@ -16,11 +16,15 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-se
 header.top { border-bottom: 2px solid var(--ink); padding-bottom: 1rem; margin-bottom: 2rem; }
 h1 { font-size: 2rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
 .subtitle { color: var(--ink-soft); font-size: 1.05rem; margin: 0; }
-nav.toc { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0 2rem; }
-nav.toc h2 { margin: 0 0 .5rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
-nav.toc ol { margin: 0; padding-left: 1.2rem; }
-nav.toc a { color: var(--accent); text-decoration: none; }
-nav.toc a:hover { text-decoration: underline; }
+nav.tabs { position: sticky; top: 0; z-index: 50; display: flex; gap: .25rem; flex-wrap: wrap; background: var(--bg); padding: .75rem 0 0; margin: 1.25rem 0 0; border-bottom: 2px solid var(--rule); }
+nav.tabs button { appearance: none; background: none; border: none; border-bottom: 3px solid transparent; padding: .5rem .9rem; font: inherit; font-size: .95rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; border-radius: 6px 6px 0 0; margin-bottom: -2px; }
+nav.tabs button:hover { background: var(--gray); color: var(--ink); }
+nav.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.next-up { margin-top: 1.75rem; padding: .75rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; font-size: .95rem; }
+.next-up a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.next-up a:hover { text-decoration: underline; }
 section.major { margin-top: 3rem; scroll-margin-top: 1rem; }
 section.major > h2 { font-size: 1.6rem; border-bottom: 1px solid var(--rule); padding-bottom: .4rem; margin-bottom: .75rem; }
 section.major > p.section-intro { color: var(--ink-soft); font-size: 1rem; margin-top: 0; margin-bottom: 1.75rem; }
@@ -115,41 +119,30 @@ table.badge-table th { background: #f5f5f0; font-weight: 600; font-size: .75rem;
 table.badge-table .num { text-align: center; font-family: ui-monospace, monospace; }
 .badge-name { font-weight: 600; }
 .badge-note { color: var(--ink-soft); font-size: .8rem; margin-top: .15rem; }
-.sprint-block { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
-.sprint-heading { display: flex; align-items: center; gap: .75rem; border-bottom: 1px solid var(--rule); padding-bottom: .6rem; margin-bottom: .75rem; }
-.sprint-heading h3 { margin: 0; font-size: 1.15rem; }
-.sprint-tag { display: inline-block; background: var(--accent); color: white; font-family: ui-monospace, monospace; font-size: .8rem; font-weight: 700; letter-spacing: .08em; padding: .25rem .55rem; border-radius: 6px; }
-.sprint-tag-pm { background: #783f04; }
-ol.sprint-q { margin: 0; padding-left: 1.4rem; }
-ol.sprint-q li { padding: .4rem 0; font-size: .98rem; line-height: 1.55; border-bottom: 1px dotted var(--rule); }
-ol.sprint-q li:last-child { border-bottom: none; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .sprint-block, .why-pillar, .why-visual, .badge-family, .req-stat { break-inside: avoid; } nav.toc { break-after: page; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .bucket, .why-pillar, .why-visual, .badge-family, .req-stat { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
+<noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
 <body>
 <div class="container">
 
 <header class="top">
-  <h1>CSH High School Redesign &mdash; Design Sprint 2 Pre-Read</h1>
-  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule structures we considered (and the one we chose), the experiences that will populate the afternoon blocks, the badge-based graduation requirements that tie them together, and the questions we will work through together in Sprint 2.</p>
+  <h1>CSH High School Redesign</h1>
+  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, the experiences that will populate the afternoon blocks, and the badge-based graduation requirements that tie them together.</p>
 </header>
 
-<nav class="toc">
-  <h2>What is in here</h2>
-  <ol>
-    <li><a href="#why">Why we are redesigning</a> &mdash; the unchanged mission, the changed world, and the morning / afternoon split that follows</li>
-    <li><a href="#competencies">Core Competencies</a> &mdash; five revised domains, every competency a commitment, and the SCORE value tied to each</li>
-    <li><a href="#schedules">Schedule Options</a> &mdash; four structures considered, with two teacher-prep distributions for each, and the one we chose</li>
-    <li><a href="#experiences">PM Experience Blocks</a> &mdash; 59 experiences across five buckets that would fill A, B, and C</li>
-    <li><a href="#requirements">Graduation Requirements &mdash; a badging system</a> &mdash; 36 afternoon credit slots over four years, 31 earned through required badges in six families, 5 open</li>
-    <li><a href="#sprint2">Design Sprint 2 &mdash; what we will discuss</a></li>
-  </ol>
+<nav class="tabs" role="tablist" aria-label="Design sections">
+  <button type="button" role="tab" data-tab="why" aria-selected="true">Why We're Redesigning</button>
+  <button type="button" role="tab" data-tab="competencies" aria-selected="false">Competencies</button>
+  <button type="button" role="tab" data-tab="schedules" aria-selected="false">Schedule</button>
+  <button type="button" role="tab" data-tab="experiences" aria-selected="false">Experiences</button>
+  <button type="button" role="tab" data-tab="requirements" aria-selected="false">Requirements</button>
 </nav>
 
 
-<section id="why" class="major why-section">
-  <h2>1. Why we're redesigning the high school</h2>
+<section id="why" class="major why-section tab-panel">
+  <h2>Why we're redesigning the high school</h2>
   <p class="section-intro">Our mission has not changed: every CSH student to economic freedom by 25. The world we're preparing students for has. In an AI-shaped economy, the traditional all-day academic model — built when knowledge itself was scarce and valuable — no longer hits the target. Knowledge is still the foundation. But what students <em>can do</em>, build, and demonstrate is what will determine their value in the economy and the depth of their lives. If the mission is the same, the school has to change.</p>
   <div class="why-visual"><svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" class="why-svg" role="img" aria-labelledby="why-svg-title">
   <title id="why-svg-title">Same mission, new path: morning knowing, afternoon doing</title>
@@ -206,11 +199,12 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     <div class="citation-label">External evidence</div>
     <p><strong>The Burning Glass Institute &amp; aiEDU,</strong> <em>"Which Skills Matter Now? A Data-Driven Framework for K&ndash;12 in the Age of AI"</em> (February 2026). Analyzing AI's impact on 1,000 workforce skills and 140 high-school learning objectives, the report finds that <strong>roughly 70% of K&ndash;12 learning objectives will need to be taught differently</strong> in an AI-shaped economy. Three of its core themes line up directly with this redesign: skills with high automation exposure now demand <em>deeper</em> conceptual understanding (not less); every discipline contains skills that need new instructional approaches alongside skills that remain foundational; and traditional assessment must shift toward evaluating student thinking, reasoning, and judgment &mdash; not the polished outputs AI can generate. &rarr; <a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">burningglassinstitute.org/research/whichskillsmatternow</a></p>
   </aside>
+  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#experiences">Experiences</a> &middot; <a href="#requirements">Requirements</a></p>
 </section>
 
-<section id="competencies" class="major">
-  <h2>2. Core Competencies</h2>
-  <p class="section-intro">Five domains, all in service of the same destination: economic freedom. These are the revised lists coming out of Design Sprint 2, trimmed from the earlier six-domain draft. The old sixth domain, <em>Enjoying and Enriching Life</em>, has not disappeared &mdash; it is woven into <em>Caring for Self and Others</em> and <em>Exploring Identity and Purpose</em>, and it shows up concretely as required arts, movement, and enrichment badges in the graduation requirements (Section 5). The essential-vs.-aspirational split is gone: every competency below (&#10003;) is a commitment every graduate must demonstrate. Each domain is paired with the SCORE value it most depends on.</p>
+<section id="competencies" class="major tab-panel">
+  <h2>Core Competencies</h2>
+  <p class="section-intro">Five domains, all in service of the same destination: economic freedom. These are the revised lists coming out of Design Sprint 2, trimmed from the earlier six-domain draft. The old sixth domain, <em>Enjoying and Enriching Life</em>, has not disappeared &mdash; it is woven into <em>Caring for Self and Others</em> and <em>Exploring Identity and Purpose</em>, and it shows up concretely as required arts, movement, and enrichment badges in the graduation requirements (see the <a href="#requirements">Requirements</a> tab). The essential-vs.-aspirational split is gone: every competency below (&#10003;) is a commitment every graduate must demonstrate. Each domain is paired with the SCORE value it most depends on.</p>
   
 <article class="domain">
   <header>
@@ -303,8 +297,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </article>
 </section>
 
-<section id="schedules" class="major">
-  <h2>3. Schedule Options</h2>
+<section id="schedules" class="major tab-panel">
+  <h2>Schedule Options</h2>
   <p class="section-intro">Four structures were considered. The morning is always academic core (classes 1&ndash;5). The afternoon is always experience blocks. Each option except Alternate Day was paired with two teacher prep distributions &mdash; Option 1 distributes preps across multiple days, Option 2 concentrates them on a single day so a department can arrive at 10:30 once a week and do its meeting in that protected morning. We chose 2-2-3 with Morning Advisory.</p>
   
 <section class="schedule-option chosen">
@@ -338,8 +332,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   <table class="sched"><thead><tr><th class="time">Time</th><th>Slot</th><th>M</th><th>T</th><th>W</th><th>Th</th><th>F</th></tr></thead><tbody><tr><td class="time">9:00 - 10:00</td><td class="slot">1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell core">Class 1</td><td class="cell block-a">Block A (9-10)</td><td class="cell block-a">Block A (9-10)</td></tr><tr><td class="time">10:05 - 11:05</td><td class="slot">2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell core">Class 2</td><td class="cell block-b">Block B (10:05-11:05)</td><td class="cell block-b">Block B (10:05-11:05)</td></tr><tr><td class="time">11:10 - 12:10</td><td class="slot">3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell core">Class 3</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">12:15 - 12:40</td><td class="slot">L/A</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell lunch">Lunch 9/10, Adv 11/12</td><td class="cell block-c">Block C (11:10-1:10)</td><td class="cell block-c">Block C (11:10-1:10)</td></tr><tr><td class="time">12:45 - 1:20</td><td class="slot">L/A</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell lunch">Adv 9/10, Lunch 11/12</td><td class="cell"></td><td class="cell"></td></tr><tr><td class="time">1:25 - 2:25</td><td class="slot">4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell core">Class 4</td><td class="cell plan">Planning</td><td class="cell plan">Meetings/PD</td></tr><tr><td class="time">2:30 - 3:30</td><td class="slot">5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell core">Class 5</td><td class="cell"></td><td class="cell"></td></tr></tbody></table></section>
 </section>
 
-<section id="experiences" class="major">
-  <h2>4. PM Experience Blocks</h2>
+<section id="experiences" class="major tab-panel">
+  <h2>PM Experience Blocks</h2>
   <p class="section-intro">The afternoon blocks (A, B, and C in the 2-2-3 schedule) are filled by five types of experiences. The list below is the current full inventory across all five &mdash; 59 experiences in total. A/B-block experiences typically meet twice a week; C-block experiences usually meet once.</p>
   <div class="notional-note">
     <strong>Note:</strong> These experiences are still notional or representative. The names, capacities, and section counts will shift as we lock partners, faculty assignments, and student demand. Treat this as a working inventory, not a final catalog.
@@ -731,8 +725,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </tbody></table></section>
 </section>
 
-<section id="requirements" class="major">
-  <h2>5. Graduation Requirements &mdash; A Badging System</h2>
+<section id="requirements" class="major tab-panel">
+  <h2>Graduation Requirements &mdash; A Badging System</h2>
   <p class="section-intro">The afternoon is not electives bolted onto a school day &mdash; it is where a large share of our graduation requirements live. Instead of traditional seat-time distribution requirements, students earn <strong>badges</strong>. A badge is earned by completing an experience and its single concrete deliverable (pass/fail). Each badge stamps one credit on the student's passport, and the passport &mdash; not a transcript of seat hours &mdash; is the record of what a graduate has actually done. Badging is our updated way of describing distribution requirements: the structure guarantees breadth (every graduate reads, builds, manages money, makes art, explores careers, and leads something real), while the menus inside each badge preserve genuine student choice.</p>
 
   <div class="req-math">
@@ -854,33 +848,35 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </section>
 </section>
 
-<section id="sprint2" class="major">
-  <h2>6. Design Sprint 2 &mdash; What We Will Discuss</h2>
-  <p class="section-intro">The five sections above are the pre-read. The questions below are what we will work through together in the room. Come with your reactions to the materials, but also with the people we will need to convince and the practical realities of our current staff in mind.</p>
-  <div class="sprint-block">
-    <div class="sprint-heading"><span class="sprint-tag">AM</span><h3>Reacting to the design</h3></div>
-    <ol class="sprint-q">
-      <li>What are your <strong>questions and reactions</strong> to the competencies?</li>
-      <li>What are your <strong>questions and reactions</strong> to the schedule design?</li>
-      <li>What are your <strong>questions and reactions</strong> to the notional list of experiences?</li>
-      <li>What are the (initial) <strong>design parameters of a strong afternoon experience</strong>?</li>
-      <li>When thinking about implementing this with our current staff, what are the <strong>opportunities</strong> (exciting things, upsides) and the <strong>likely challenges</strong> (things that will be hard for some or all)?</li>
-    </ol>
-  </div>
-  <div class="sprint-block">
-    <div class="sprint-heading"><span class="sprint-tag sprint-tag-pm">PM</span><h3>Moving toward implementation</h3></div>
-    <ol class="sprint-q">
-      <li>What will we <strong>pilot</strong>, and <strong>when</strong>?</li>
-      <li>What are the <strong>change management and staff engagement</strong> strategies and timeline?</li>
-      <li>What are the <strong>key design next steps</strong> to have a full gameplan for next year?</li>
-    </ol>
-  </div>
-</section>
 
 <footer>
-  Pre-read prepared for the CSH HS Redesign Design Sprint 2 &middot; Comp Sci High &middot; May 2026 &middot; Competencies &amp; requirements revised June 2026
+  CSH High School Redesign &middot; Comp Sci High &middot; Revised June 2026
 </footer>
 
 </div>
+<script>
+(function () {
+  var ids = ['why', 'competencies', 'schedules', 'experiences', 'requirements'];
+  var buttons = document.querySelectorAll('nav.tabs button');
+  function show(id) {
+    if (ids.indexOf(id) === -1) { id = 'why'; }
+    ids.forEach(function (v) {
+      document.getElementById(v).classList.toggle('active', v === id);
+    });
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === id));
+    });
+    window.scrollTo(0, 0);
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var id = b.getAttribute('data-tab');
+      if (location.hash !== '#' + id) { location.hash = id; } else { show(id); }
+    });
+  });
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1)); });
+  show(location.hash.slice(1));
+})();
+</script>
 </body>
 </html>
