@@ -55,6 +55,18 @@ section.major > p.section-intro { color: var(--ink-soft); font-size: 1rem; margi
 .comp-list { margin: 0; padding: 0; list-style: none; }
 .comp-list li { padding: .4rem .6rem .4rem 1.6rem; border-bottom: 1px dotted var(--rule); position: relative; font-size: .95rem; }
 .comp-list li::before { content: "\2713"; position: absolute; left: .4rem; color: var(--accent); font-weight: 700; }
+.dp-block { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1.75rem; }
+.dp-title { margin: 0 0 .25rem; font-size: 1.15rem; }
+.dp-intro { color: var(--ink-soft); font-size: .9rem; margin: 0 0 1rem; }
+.dp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 800px) { .dp-grid { grid-template-columns: 1fr; } }
+.dp-card { border: 1px solid var(--rule); border-radius: 8px; padding: 1rem; background: #fbfbf7; }
+.dp-tag { display: inline-block; font-weight: 800; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; padding: .25rem .6rem; border-radius: 6px; margin-bottom: .6rem; }
+.dp-tag-am { background: var(--accent-soft); color: var(--accent); }
+.dp-tag-pm { background: var(--gold); color: #5c4a00; }
+.dp-open { margin: 0; font-size: .9rem; color: var(--ink-soft); font-style: italic; }
+.dp-list { margin: 0; padding-left: 1.2rem; font-size: .92rem; }
+.dp-list li { padding: .15rem 0; }
 .schedule-option { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
 .schedule-option.chosen { border: 2px solid var(--chosen); box-shadow: 0 0 0 4px rgba(255, 217, 102, .15); }
 .schedule-option h3 { margin: 0 0 .75rem; font-size: 1.2rem; }
@@ -143,7 +155,7 @@ details.fine-print { margin-top: 1.75rem; }
 details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
 .fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
 <noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
@@ -317,6 +329,27 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 <li>Explores how their identity intersects with professional, economic, and social success</li>
   </ul>
 </article>
+
+<div class="dp-block">
+  <h3 class="dp-title">Design principles &mdash; in progress</h3>
+  <p class="dp-intro">The competencies set the destination. These principles govern how each half of the day is designed to get there &mdash; they are still being drafted with staff.</p>
+  <div class="dp-grid">
+    <div class="dp-card">
+      <div class="dp-tag dp-tag-am">Classrooms must&hellip;</div>
+      <p class="dp-open">Still being defined &mdash; a key output of the design process. What must be true of every morning classroom for the Knowing half of the day to deliver on domains 1&ndash;2?</p>
+    </div>
+    <div class="dp-card">
+      <div class="dp-tag dp-tag-pm">Afternoon experiences must&hellip;</div>
+      <ul class="dp-list">
+        <li>Build community and connection</li>
+        <li>Promote agency</li>
+        <li>Help students explore what they enjoy</li>
+        <li>Build meaningful skill, rigor, and depth</li>
+        <li>Make their relevance clear</li>
+      </ul>
+    </div>
+  </div>
+</div>
 </section>
 
 <section id="schedules" class="major tab-panel">
