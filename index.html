@@ -187,11 +187,44 @@ ol.goal-list li { padding: .2rem 0; }
 @media (max-width: 800px) { .build-strip { grid-template-columns: 1fr 1fr; } }
 .build-cat { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: .8rem .9rem; font-size: .8rem; color: var(--ink-soft); }
 .build-cat strong { display: block; font-size: .85rem; color: var(--ink); margin-bottom: .25rem; }
+.pilot-group { margin-bottom: 1.5rem; }
+.pilot-group-head { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin: 1.5rem 0 .25rem; }
+.pilot-group-head h3 { margin: 0; font-size: 1.2rem; }
+.pilot-group-head .pg-tag { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: white; background: var(--accent); padding: .22rem .6rem; border-radius: 999px; }
+.pilot-group-head .pg-sub { color: var(--ink-soft); font-size: .85rem; }
+.pilot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .75rem; }
+@media (max-width: 800px) { .pilot-grid { grid-template-columns: 1fr; } }
+.pilot-card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.15rem; display: flex; flex-direction: column; }
+.pc-head { border-bottom: 1px solid var(--rule); padding-bottom: .5rem; margin-bottom: .5rem; }
+.pc-name { font-weight: 700; font-size: 1.02rem; }
+.pc-name span { font-weight: 400; color: var(--ink-soft); font-size: .9rem; }
+.pc-meta { font-size: .8rem; color: var(--ink-soft); margin-top: .2rem; }
+.pc-meta strong { color: var(--ink); font-weight: 600; }
+.pc-q { font-size: .9rem; margin: 0 0 .65rem; }
+.pc-q::before { content: "Testing: "; font-weight: 700; color: var(--accent); }
+.pc-chips { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: auto; }
+.dchip { font-size: .68rem; font-weight: 600; padding: .15rem .5rem; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+.dchip.primary { font-weight: 800; border-width: 1.5px; }
+.dchip.primary::before { content: "\2605 "; }
+.d1 { background: var(--accent-soft); color: #2d5016; border-color: #2d5016; }
+.d2 { background: var(--blue); color: #1c4587; border-color: #1c4587; }
+.d3 { background: var(--gold); color: #7a6000; border-color: #b08d00; }
+.d4 { background: var(--pink); color: #6b3a4e; border-color: #a05576; }
+.d5 { background: var(--purple); color: #3d2c5c; border-color: #5b4a85; }
+.dchip:not(.primary) { border-color: transparent; }
+.dlegend { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1.25rem; padding: .6rem .85rem; background: white; border: 1px dashed var(--rule); border-radius: 8px; font-size: .8rem; align-items: center; }
+.dlegend .ll { font-weight: 700; color: var(--ink-soft); margin-right: .25rem; }
+.coverage-note { background: #fff8e0; border-left: 4px solid var(--chosen); padding: .85rem 1.1rem; border-radius: 4px; font-size: .9rem; color: #5c4a00; margin-top: 1.5rem; }
+.coverage-note strong { color: #4a3a00; }
+.tl-meta { margin-top: .55rem; padding-top: .5rem; border-top: 1px dotted var(--rule); font-size: .8rem; color: var(--ink-soft); }
+.tl-meta .ttag { display: inline-block; font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: .12rem .45rem; border-radius: 4px; margin-right: .4rem; vertical-align: middle; }
+.ttag-decide { background: var(--gold); color: #5c4a00; }
+.ttag-pilot { background: var(--accent-soft); color: var(--accent); }
 details.fine-print { margin-top: 1.75rem; }
 details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
 .fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card, .partner, .success-card, .tl-card, .build-cat, .goal-strip { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card, .partner, .success-card, .tl-card, .build-cat, .goal-strip, .pilot-card { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
 <noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
@@ -200,7 +233,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <header class="top">
   <h1>CSH High School Redesign</h1>
-  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, the badge-based graduation requirements that fill the afternoon blocks, the external partners who make the work real, and the road to launch in September 2027.</p>
+  <p class="subtitle">Why we are redesigning the high school, the competencies every graduate must hit, the schedule we chose, the badge-based graduation requirements that fill the afternoon blocks, the pilots testing the model this year, the external partners who make the work real, and the road to launch in September 2027.</p>
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Design sections">
@@ -208,6 +241,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   <button type="button" role="tab" data-tab="competencies" aria-selected="false">Competencies</button>
   <button type="button" role="tab" data-tab="schedules" aria-selected="false">Schedule</button>
   <button type="button" role="tab" data-tab="requirements" aria-selected="false">Requirements</button>
+  <button type="button" role="tab" data-tab="pilots" aria-selected="false">Pilots</button>
   <button type="button" role="tab" data-tab="partners" aria-selected="false">Partners</button>
   <button type="button" role="tab" data-tab="rollout" aria-selected="false">Rollout</button>
 </nav>
@@ -271,7 +305,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     <div class="citation-label">External evidence</div>
     <p><strong>The Burning Glass Institute &amp; aiEDU,</strong> <em>"Which Skills Matter Now? A Data-Driven Framework for K&ndash;12 in the Age of AI"</em> (February 2026). Analyzing AI's impact on 1,000 workforce skills and 140 high-school learning objectives, the report finds that <strong>roughly 70% of K&ndash;12 learning objectives will need to be taught differently</strong> in an AI-shaped economy. Three of its core themes line up directly with this redesign: skills with high automation exposure now demand <em>deeper</em> conceptual understanding (not less); every discipline contains skills that need new instructional approaches alongside skills that remain foundational; and traditional assessment must shift toward evaluating student thinking, reasoning, and judgment &mdash; not the polished outputs AI can generate. &rarr; <a href="https://www.burningglassinstitute.org/research/whichskillsmatternow" target="_blank" rel="noopener">burningglassinstitute.org/research/whichskillsmatternow</a></p>
   </aside>
-  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#requirements">Requirements</a> &middot; <a href="#partners">Partners</a> &middot; <a href="#rollout">Rollout</a></p>
+  <p class="next-up"><strong>Explore the design:</strong> <a href="#competencies">Competencies</a> &middot; <a href="#schedules">Schedule</a> &middot; <a href="#requirements">Requirements</a> &middot; <a href="#pilots">Pilots</a> &middot; <a href="#partners">Partners</a> &middot; <a href="#rollout">Rollout</a></p>
 </section>
 
 <section id="competencies" class="major tab-panel">
@@ -631,6 +665,136 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </details>
 </section>
 
+<section id="pilots" class="major tab-panel">
+  <h2>Pilots &mdash; Testing the Model This Year</h2>
+  <p class="section-intro">Before the full model launches, we test its pieces during the 2026-27 school year. Each pilot is a real experiment run by a CSH teacher with real students, built to answer one honest question: does this structure work, for whom, and what would it take to scale? The evidence drives the go/no-go calls on the <a href="#rollout">Rollout</a> timeline. Pilots fall into three groups.</p>
+
+  <div class="dlegend"><span class="ll">Competencies tested:</span>
+    <span class="dchip d1">1 Career Readiness</span>
+    <span class="dchip d2">2 Learning &amp; Reasoning</span>
+    <span class="dchip d3">3 Agency</span>
+    <span class="dchip d4">4 Caring for Self/Others</span>
+    <span class="dchip d5">5 Identity &amp; Purpose</span>
+    <span style="color:var(--ink-soft);">&nbsp;&middot;&nbsp; ★ = primary focus</span>
+  </div>
+
+  <div class="pilot-group">
+    <div class="pilot-group-head"><span class="pg-tag">Core</span><h3>Core experiences</h3><span class="pg-sub">structures most students will eventually touch</span></div>
+    <div class="pilot-grid">
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Reading Club</div>
+        <div class="pc-meta"><strong>Chris Sturdy</strong> &middot; ~15 students, mixed reading ability</div>
+      </div>
+      <p class="pc-q">Can a club-style model grow reading volume and confidence without feeling like remediation?</p>
+      <div class="pc-chips"><span class="dchip d2 primary">Learning &amp; Reasoning</span><span class="dchip d5">Identity &amp; Purpose</span><span class="dchip d4">Caring for Self/Others</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Tier 2 Support</div>
+        <div class="pc-meta"><strong>Logan Brooks</strong> &middot; ~150 students, lower performers by domain</div>
+      </div>
+      <p class="pc-q">Can targeted Tier 2 blocks accelerate progress in priority domains &mdash; and how often should they appear?</p>
+      <div class="pc-chips"><span class="dchip d2 primary">Learning &amp; Reasoning</span><span class="dchip d3">Agency</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">PSL 12</div>
+        <div class="pc-meta"><strong>Murray, Meyers &amp; Pooler</strong> &middot; ~117 students, entire 12th grade</div>
+      </div>
+      <p class="pc-q">Does a single-purpose, goal-oriented PSL module drive more engagement and ownership?</p>
+      <div class="pc-chips"><span class="dchip d1 primary">Career Readiness</span><span class="dchip d3">Agency</span><span class="dchip d5">Identity &amp; Purpose</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Personal Finance</div>
+        <div class="pc-meta"><strong>Taqee Bond</strong> &middot; ~25 students</div>
+      </div>
+      <p class="pc-q">Which block structures build real confidence with everyday financial decisions?</p>
+      <div class="pc-chips"><span class="dchip d4 primary">Caring for Self/Others</span><span class="dchip d3">Agency</span><span class="dchip d2">Learning &amp; Reasoning</span></div>
+    </div>
+    </div>
+  </div>
+
+  <div class="pilot-group">
+    <div class="pilot-group-head"><span class="pg-tag">Pathway</span><h3>Pathway experiences</h3><span class="pg-sub">tested with a defined subset of students</span></div>
+    <div class="pilot-grid">
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Flipped Classroom <span>&mdash; AP US History</span></div>
+        <div class="pc-meta"><strong>David Noah</strong> &middot; ~25 students, full APUSH section</div>
+      </div>
+      <p class="pc-q">Does flipping content out of class raise preparedness and free class time for AP-level work?</p>
+      <div class="pc-chips"><span class="dchip d2 primary">Learning &amp; Reasoning</span><span class="dchip d3">Agency</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Self-Directed Learning <span>&mdash; AP BC Calculus</span></div>
+        <div class="pc-meta"><strong>Shilpa Agrawal</strong> &middot; 3 students, post-AB seniors</div>
+      </div>
+      <p class="pc-q">Can a self-directed model build independence while sustaining strong academic progress?</p>
+      <div class="pc-chips"><span class="dchip d3 primary">Agency</span><span class="dchip d2">Learning &amp; Reasoning</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Enrichment: Specific Learning <span>&mdash; AP Biology Lab</span></div>
+        <div class="pc-meta"><strong>Ethan Bendau</strong> &middot; ~20 students, mixed AP Bio subset</div>
+      </div>
+      <p class="pc-q">Do course-attached enrichment blocks deepen mastery and lift performance?</p>
+      <div class="pc-chips"><span class="dchip d2 primary">Learning &amp; Reasoning</span><span class="dchip d3">Agency</span><span class="dchip d1">Career Readiness</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Enrichment: Schema &amp; Application <span>&mdash; Engineering Design</span></div>
+        <div class="pc-meta"><strong>Mike Carapezza</strong> &middot; ~20 students, mixed 9th&ndash;11th</div>
+      </div>
+      <p class="pc-q">Does interdisciplinary enrichment build transferable mental models &mdash; and how do we track mastery outside core academics?</p>
+      <div class="pc-chips"><span class="dchip d3 primary">Agency</span><span class="dchip d2">Learning &amp; Reasoning</span><span class="dchip d1">Career Readiness</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Reading Futures</div>
+        <div class="pc-meta"><strong>Jeff Thevenin</strong> &middot; ~30 students, reading at/below 4th-grade level</div>
+      </div>
+      <p class="pc-q">How does intensive, specialist-led intervention fit the new schedule for our lowest readers?</p>
+      <div class="pc-chips"><span class="dchip d2 primary">Learning &amp; Reasoning</span><span class="dchip d3">Agency</span><span class="dchip d4">Caring for Self/Others</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Study Hall</div>
+        <div class="pc-meta"><strong>Logan Brooks</strong> &middot; ~100 students, C or lower</div>
+      </div>
+      <p class="pc-q">Does structured work time improve completion and ownership &mdash; and who needs it, how often?</p>
+      <div class="pc-chips"><span class="dchip d3 primary">Agency</span><span class="dchip d1">Career Readiness</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">External Experience <span>&mdash; Swim</span></div>
+        <div class="pc-meta"><strong>Pooler &amp; McNair</strong> &middot; ~30 students, alternative program</div>
+      </div>
+      <p class="pc-q">How can off-site experiences earn credit with clear expectations for attendance, reflection, and evidence?</p>
+      <div class="pc-chips"><span class="dchip d4 primary">Caring for Self/Others</span><span class="dchip d1">Career Readiness</span><span class="dchip d3">Agency</span></div>
+    </div>
+    </div>
+  </div>
+
+  <div class="pilot-group">
+    <div class="pilot-group-head"><span class="pg-tag">Advisory</span><h3>Advisory</h3><span class="pg-sub">the daily morning structure that anchors the new schedule</span></div>
+    <div class="pilot-grid">
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Conference-Based Advisory <span>&mdash; 9th grade</span></div>
+        <div class="pc-meta"><strong>S. Joseph &amp; Thevenin</strong> &middot; ~60 students, 9th grade</div>
+      </div>
+      <p class="pc-q">Does a conference-based advisory build self-awareness, agency, and follow-through?</p>
+      <div class="pc-chips"><span class="dchip d5 primary">Identity &amp; Purpose</span><span class="dchip d3">Agency</span><span class="dchip d4">Caring for Self/Others</span><span class="dchip d1">Career Readiness</span></div>
+    </div>
+    </div>
+  </div>
+
+  <div class="coverage-note"><strong>What the pilots test &mdash; and don't yet.</strong> Because every pilot is a schoolhouse experiment run by current teachers, Domains 2 (Learning &amp; Reasoning) and 3 (Agency) get tested many times over. The gaps are the experiences that need a <em>partner, a kitchen, a worksite, or a government office</em> rather than a classroom: the career-field ladder (Career Intro / Deep Dive), nutrition and cooking, and civic engagement are not yet on the pilot slate. Those are exactly where the current school model is thinnest &mdash; and the cheapest fixes are to turn one early <a href="#partners">partnership</a> into a short Career Intro probe and run a four-week civic-engagement block, neither of which needs new staff.</div>
+</section>
+
 <section id="partners" class="major tab-panel">
   <h2>External Partner Strategy</h2>
   <p class="section-intro">The Doing blocks only work if the work is real &mdash; and the labor market our students will enter is changing fast. Burning Glass Institute, Harvard, and the Federal Reserve are converging on the same finding: AI is collapsing the entry-level rung of the career ladder. Routine junior tasks are being automated, and employers increasingly hire people who already have the judgment that used to develop on the job. If that's the world, the old sequence &mdash; finish school, get a starter job, learn on the clock &mdash; no longer works. Our students need to graduate with real exposure to real work, real credentials, and real relationships with real employers already in hand. These partnerships, which also serve CSH_Alt (opening September 2026), are how the afternoon delivers that.</p>
@@ -701,7 +865,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <section id="rollout" class="major tab-panel">
   <h2>Rollout &amp; Training Plan</h2>
-  <p class="section-intro">The model doesn't launch all at once. Pilots run during the 2026-27 school year, staff build capability checkpoint by checkpoint, and the full design opens in September 2027. This is the working arc &mdash; dates and details will keep firming up as we go.</p>
+  <p class="section-intro">The model doesn't launch all at once. Pilots run during the 2026-27 school year, staff build capability checkpoint by checkpoint, and the full design opens in September 2027. This is the working arc &mdash; dates and details will keep firming up as we go. The 2026-27 <a href="#pilots">pilots</a> are the engine: they generate the evidence that turns each checkpoint’s decisions from guesses into calls.</p>
 
   <div class="goal-strip">
     <h3>What must be true by launch</h3>
@@ -724,7 +888,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       <div class="tl-card">
         <div class="tl-when">June 2026</div>
         <h4>Orient</h4>
-        <p>Growth and AI sessions for all staff, including a first look at the final competencies. Pilots are confirmed &mdash; each with defined success metrics &mdash; and the competencies are locked so everything after builds on stable ground.</p>
+        <p>Two all-staff sessions &mdash; a Growth Session that gives everyone their first look at the final competencies, and an AI Session on how the work changes. In parallel, the pilot roster is confirmed and every pilot gets a defined success metric so the year produces evidence, not anecdotes.</p>
+        <div class="tl-meta"><span class="ttag ttag-decide">Decisions due</span>Lock the competencies; confirm the pilot list and how each will be judged.</div>
       </div>
     </div>
     <div class="tl-item">
@@ -732,7 +897,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       <div class="tl-card">
         <div class="tl-when">August 2026</div>
         <h4>Prepare the pilot year</h4>
-        <p>Planning for the New Design 101 &amp; 201, AI in the Classroom, and Future of the Economy / PSL training for all staff. Pilot teachers get a dedicated intensive &mdash; experience structure, pass/fail deliverable assessment, evidence collection &mdash; and the pilots are presented to the whole staff.</p>
+        <p>The big PD week. All staff move through Planning for the New Design 101 &amp; 201, AI in the Classroom 1, and a Future of the Economy / PSL session. Pilot teachers branch off for a dedicated intensive &mdash; experience structure, pass/fail deliverable assessment, evidence collection &mdash; and the full pilot slate is presented so every teacher knows what we’re testing and why.</p>
+        <div class="tl-meta"><span class="ttag ttag-pilot">Pilots start</span>Pilots open with the school year; families of pilot students get letters home.</div>
       </div>
     </div>
     <div class="tl-item">
@@ -740,7 +906,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       <div class="tl-card">
         <div class="tl-when">November 2026</div>
         <h4>Pilots live &mdash; first evidence</h4>
-        <p>First pilot share-out: early evidence and student work in front of the full staff. Planning and AI training continue, and leadership runs a mid-point review toward a preliminary list of what scales.</p>
+        <p>Pilots have been running for two months. The first Pilot Share-Out puts early evidence and real student work in front of the whole staff &mdash; the moment belief starts to build on proof. Planning for the New Design 2 and AI in the Classroom 2 continue, while leadership runs a mid-point review of each pilot.</p>
+        <div class="tl-meta"><span class="ttag ttag-decide">Decision forming</span>Preliminary read on which pilots scale into Year 1 &mdash; and which don’t.</div>
       </div>
     </div>
     <div class="tl-item">
@@ -748,7 +915,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       <div class="tl-card">
         <div class="tl-when">February 2027</div>
         <h4>From pilots to design</h4>
-        <p>Pilot results presented. The Experience Designers Workshop opens experience-building to everyone, anchored in the competencies and graduation requirements. The faculty decides the prep distribution question, and the first staffing conversations about 2027-28 roles begin.</p>
+        <p>Pilot results are presented in full. The first Experience Designers Workshop opens experience-building to everyone, anchored in the competencies and the badge requirements, with pilot teachers co-facilitating. AI in the Classroom 3 runs alongside a deep dive linking competencies to graduation requirements.</p>
+        <div class="tl-meta"><span class="ttag ttag-decide">Decisions due</span>Faculty vote on prep distribution; first staffing conversation about how roles change in 2027-28 (intent-to-return); build-vs-buy on the student hub.</div>
       </div>
     </div>
     <div class="tl-item">
@@ -756,7 +924,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       <div class="tl-card">
         <div class="tl-when">April 2027</div>
         <h4>Build and choose</h4>
-        <p>Protected design-studio time to build experiences. The course catalogue is published, students elect their first experiences, partner agreements are signed, and the budget locks in the tools and time the launch needs.</p>
+        <p>The shift from training to building: a protected Experience Design Studio where teachers actually build their experiences, plus a second staffing moment where 2027-28 assignments are shared. The course catalogue is published and students elect their first-trimester experiences at a family info night.</p>
+        <div class="tl-meta"><span class="ttag ttag-decide">Decisions due</span>FY28 budget locks software and stipends; Year-1 partner MOUs signed (see Partners); summer build-stipend call.</div>
       </div>
     </div>
     <div class="tl-item">
@@ -764,7 +933,8 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       <div class="tl-card">
         <div class="tl-when">June 2027</div>
         <h4>Lock the year</h4>
-        <p>The full picture: final master schedule, staffing, and advising model. Experiences are roughly 80% built, and the Schedule &amp; Staffing Deep Dive walks every teacher through how their year will actually work.</p>
+        <p>The full picture comes together: final master schedule, staffing plan, and advising model. Experience Designers 2 gets experiences to roughly 80% built, and a Schedule &amp; Staffing Deep Dive walks every teacher through how their actual year will run &mdash; rooms, rosters, preps, and planning time.</p>
+        <div class="tl-meta"><span class="ttag ttag-pilot">Carryover</span>Lessons and structures from the strongest pilots are folded into Year-1 experiences.</div>
       </div>
     </div>
     <div class="tl-item launch">
@@ -772,7 +942,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       <div class="tl-card">
         <div class="tl-when">August 2027 &mdash; Launch Institute</div>
         <h4>Dry-run everything, then open the doors</h4>
-        <p>A multi-day institute: experience dry-runs, advisory launch, schedule walk-throughs, applied AI support, a dedicated onboarding track for new hires, and family orientation &mdash; including every student's badge passport. September 2027: the new model is live.</p>
+        <p>A multi-day Launch Institute: experience dry-runs, advisory launch, schedule walk-throughs, and applied AI support (session 4). A dedicated onboarding track brings new hires up to speed on the why, the competencies, and the model. Families get launch communications and 9th-graders an orientation &mdash; including their badge passport. <strong>September 2027: the new model is live.</strong></p>
       </div>
     </div>
   </div>
@@ -793,7 +963,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 </div>
 <script>
 (function () {
-  var ids = ['why', 'competencies', 'schedules', 'requirements', 'partners', 'rollout'];
+  var ids = ['why', 'competencies', 'schedules', 'requirements', 'pilots', 'partners', 'rollout'];
   var buttons = document.querySelectorAll('nav.tabs button');
   function show(id) {
     if (ids.indexOf(id) === -1) { id = 'why'; }
