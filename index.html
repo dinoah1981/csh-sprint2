@@ -1018,7 +1018,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 /* Notes & Questions — per-tab threads backed by a Google Sheet via JSONP. */
 (function () {
   /* === Paste the Apps Script Web app URL between the quotes (ends in /exec). === */
-  var COMMENTS_ENDPOINT = "";
+  var COMMENTS_ENDPOINT = "https://script.google.com/a/macros/compscihigh.org/s/AKfycbx32XazUI0O2JKQdd5n8FHJNPsyEDHxyKzu5TEfIGznicNYX4TpDYoNoc7xxNKleDyxMQ/exec";
 
   var TABS = ['why','competencies','schedules','requirements','pilots','partners','rollout'];
   var configured = /^https:\/\/script\.google\.com\//.test(COMMENTS_ENDPOINT);
@@ -1085,7 +1085,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
       btn.disabled = true; status.textContent = 'Posting\u2026';
       jsonp({ action: 'add', tab: tab, type: picked, name: nm, comment: text }, function (err, data) {
         btn.disabled = false;
-        if (err || !data || !data.ok) { status.textContent = 'Could not post \u2014 try again.'; return; }
+        if (err || !data || !data.ok) { status.textContent = 'Couldn\u2019t post \u2014 sign in to your compscihigh.org account, then retry.'; return; }
         ta.value = ''; status.textContent = 'Posted.';
         setTimeout(function () { status.textContent = ''; }, 2500);
         load(tab);
@@ -1101,7 +1101,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     list.appendChild(el('p', 'cm-empty', 'Loading\u2026'));
     jsonp({ action: 'list', tab: tab }, function (err, data) {
       list.innerHTML = '';
-      if (err || !data || !data.ok) { list.appendChild(el('p', 'cm-empty', 'Could not load notes right now.')); return; }
+      if (err || !data || !data.ok) { list.appendChild(el('p', 'cm-empty', 'Couldn\u2019t load notes \u2014 make sure you\u2019re signed in to your compscihigh.org Google account.')); return; }
       var rows = (data.comments || []).slice().reverse();
       if (!rows.length) { list.appendChild(el('p', 'cm-empty', 'No notes yet \u2014 be the first.')); }
       rows.forEach(function (r) {
