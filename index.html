@@ -221,6 +221,35 @@ ol.goal-list li { padding: .2rem 0; }
 .ttag-decide { background: var(--gold); color: #5c4a00; }
 .ttag-pilot { background: var(--accent-soft); color: var(--accent); }
 details.fine-print { margin-top: 1.75rem; }
+.comments { margin-top: 2.25rem; padding-top: 1.25rem; border-top: 2px solid var(--rule); }
+.comments h3 { font-size: 1.1rem; margin: 0 0 .2rem; }
+.cm-sub { color: var(--ink-soft); font-size: .85rem; margin: 0 0 .9rem; }
+.cm-form { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem; margin-bottom: 1.1rem; }
+.cm-toggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin-bottom: .6rem; }
+.cm-toggle button { appearance: none; border: none; background: white; font: inherit; font-size: .85rem; font-weight: 600; padding: .4rem .9rem; cursor: pointer; color: var(--ink-soft); }
+.cm-toggle button[aria-pressed="true"][data-type="Comment"] { background: var(--accent-soft); color: var(--accent); }
+.cm-toggle button[aria-pressed="true"][data-type="Question"] { background: var(--gold); color: #5c4a00; }
+.cm-form input, .cm-form textarea { width: 100%; font: inherit; font-size: .9rem; padding: .55rem .65rem; border: 1px solid var(--rule); border-radius: 6px; box-sizing: border-box; margin-bottom: .55rem; background: var(--bg); color: var(--ink); }
+.cm-form textarea { min-height: 74px; resize: vertical; }
+.cm-row { display: flex; justify-content: space-between; align-items: center; gap: .75rem; }
+.cm-btn { background: var(--accent); color: white; border: none; border-radius: 6px; padding: .5rem 1.2rem; font: inherit; font-weight: 600; cursor: pointer; }
+.cm-btn:disabled { opacity: .55; cursor: default; }
+.cm-status { font-size: .8rem; color: var(--ink-soft); }
+.cm-list { display: flex; flex-direction: column; gap: .6rem; }
+.cm-item { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: .7rem .9rem; border-left: 4px solid var(--rule); }
+.cm-item.q { border-left-color: var(--chosen); background: #fffdf5; }
+.cm-item.c { border-left-color: var(--accent); }
+.cm-badge { font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: .1rem .45rem; border-radius: 4px; margin-right: .4rem; }
+.cm-badge.q { background: var(--gold); color: #5c4a00; }
+.cm-badge.c { background: var(--accent-soft); color: var(--accent); }
+.cm-meta { font-size: .78rem; color: var(--ink-soft); margin-bottom: .25rem; }
+.cm-meta b { color: var(--ink); font-weight: 700; }
+.cm-body { font-size: .92rem; white-space: pre-wrap; word-wrap: break-word; overflow-wrap: anywhere; }
+.cm-empty { color: var(--ink-soft); font-size: .88rem; font-style: italic; }
+.cm-sheetlink { display: inline-block; margin-top: 1rem; font-size: .85rem; color: var(--accent); font-weight: 600; text-decoration: none; }
+.cm-sheetlink:hover { text-decoration: underline; }
+.cm-pending { background: #fff8e0; border: 1px dashed var(--chosen); border-radius: 8px; padding: .8rem 1rem; font-size: .88rem; color: #5c4a00; }
+@media print { .comments { display: none; } }
 details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
 .fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
@@ -983,6 +1012,123 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   });
   window.addEventListener('hashchange', function () { show(location.hash.slice(1)); });
   show(location.hash.slice(1));
+})();
+</script>
+<script>
+/* Notes & Questions — per-tab threads backed by a Google Sheet via JSONP. */
+(function () {
+  /* === Paste the Apps Script Web app URL between the quotes (ends in /exec). === */
+  var COMMENTS_ENDPOINT = "";
+
+  var TABS = ['why','competencies','schedules','requirements','pilots','partners','rollout'];
+  var configured = /^https:\/\/script\.google\.com\//.test(COMMENTS_ENDPOINT);
+
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+
+  function jsonp(params, done) {
+    var name = '__cm' + Math.random().toString(36).slice(2);
+    var s = document.createElement('script');
+    var timer = setTimeout(function () { cleanup(); done(new Error('timeout')); }, 12000);
+    function cleanup() { clearTimeout(timer); delete window[name]; if (s.parentNode) s.parentNode.removeChild(s); }
+    window[name] = function (data) { cleanup(); done(null, data); };
+    params.callback = name; params._ = Date.now();
+    var q = Object.keys(params).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
+    s.src = COMMENTS_ENDPOINT + '?' + q;
+    s.onerror = function () { cleanup(); done(new Error('network')); };
+    document.body.appendChild(s);
+  }
+
+  function build(tab) {
+    var sec = document.getElementById(tab);
+    if (!sec) return;
+    var wrap = el('div', 'comments');
+    wrap.appendChild(el('h3', null, 'Notes & Questions'));
+    wrap.appendChild(el('p', 'cm-sub', 'Leave a comment or ask a question about this section. Everyone with the link sees what you post.'));
+
+    if (!configured) {
+      var pend = el('div', 'cm-pending', 'This section\u2019s notes turn on as soon as the shared Google Sheet is connected.');
+      wrap.appendChild(pend);
+      sec.appendChild(wrap);
+      return;
+    }
+
+    /* form */
+    var form = el('div', 'cm-form');
+    var toggle = el('div', 'cm-toggle');
+    var bC = el('button', null, '\uD83D\uDCAC Comment'); bC.type = 'button'; bC.setAttribute('data-type', 'Comment'); bC.setAttribute('aria-pressed', 'true');
+    var bQ = el('button', null, '\u2753 Question'); bQ.type = 'button'; bQ.setAttribute('data-type', 'Question'); bQ.setAttribute('aria-pressed', 'false');
+    toggle.appendChild(bC); toggle.appendChild(bQ);
+    var picked = 'Comment';
+    [bC, bQ].forEach(function (b) { b.addEventListener('click', function () { picked = b.getAttribute('data-type'); bC.setAttribute('aria-pressed', String(picked === 'Comment')); bQ.setAttribute('aria-pressed', String(picked === 'Question')); ta.placeholder = picked === 'Question' ? 'Your question\u2026' : 'Your comment\u2026'; }); });
+
+    var nameIn = el('input'); nameIn.type = 'text'; nameIn.maxLength = 80; nameIn.placeholder = 'Your name (optional)';
+    try { nameIn.value = localStorage.getItem('csh_cm_name') || ''; } catch (e) {}
+    var ta = el('textarea'); ta.maxLength = 1500; ta.placeholder = 'Your comment\u2026';
+    var row = el('div', 'cm-row');
+    var btn = el('button', 'cm-btn', 'Post'); btn.type = 'button';
+    var status = el('span', 'cm-status', '');
+    row.appendChild(btn); row.appendChild(status);
+    form.appendChild(toggle); form.appendChild(nameIn); form.appendChild(ta); form.appendChild(row);
+
+    var list = el('div', 'cm-list'); list.id = 'cm-' + tab;
+    var sheetLink = el('a', 'cm-sheetlink', 'Open this section\u2019s notes in the Sheet \u2197');
+    sheetLink.target = '_blank'; sheetLink.rel = 'noopener'; sheetLink.style.display = 'none';
+
+    wrap.appendChild(form); wrap.appendChild(list); wrap.appendChild(sheetLink);
+    sec.appendChild(wrap);
+
+    btn.addEventListener('click', function () {
+      var text = ta.value.trim();
+      if (!text) { ta.focus(); return; }
+      var nm = nameIn.value.trim();
+      try { localStorage.setItem('csh_cm_name', nm); } catch (e) {}
+      btn.disabled = true; status.textContent = 'Posting\u2026';
+      jsonp({ action: 'add', tab: tab, type: picked, name: nm, comment: text }, function (err, data) {
+        btn.disabled = false;
+        if (err || !data || !data.ok) { status.textContent = 'Could not post \u2014 try again.'; return; }
+        ta.value = ''; status.textContent = 'Posted.';
+        setTimeout(function () { status.textContent = ''; }, 2500);
+        load(tab);
+      });
+    });
+  }
+
+  function load(tab) {
+    if (!configured) return;
+    var list = document.getElementById('cm-' + tab);
+    if (!list) return;
+    list.innerHTML = '';
+    list.appendChild(el('p', 'cm-empty', 'Loading\u2026'));
+    jsonp({ action: 'list', tab: tab }, function (err, data) {
+      list.innerHTML = '';
+      if (err || !data || !data.ok) { list.appendChild(el('p', 'cm-empty', 'Could not load notes right now.')); return; }
+      var rows = (data.comments || []).slice().reverse();
+      if (!rows.length) { list.appendChild(el('p', 'cm-empty', 'No notes yet \u2014 be the first.')); }
+      rows.forEach(function (r) {
+        var isQ = String(r.type).toLowerCase() === 'question';
+        var item = el('div', 'cm-item ' + (isQ ? 'q' : 'c'));
+        var meta = el('div', 'cm-meta');
+        var badge = el('span', 'cm-badge ' + (isQ ? 'q' : 'c'), isQ ? 'Question' : 'Comment');
+        meta.appendChild(badge);
+        var who = el('b', null, r.name || 'Anonymous'); meta.appendChild(who);
+        var when = '';
+        try { var d = new Date(r.t); if (!isNaN(d)) when = ' \u00b7 ' + d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); } catch (e) {}
+        meta.appendChild(document.createTextNode(when));
+        item.appendChild(meta);
+        item.appendChild(el('div', 'cm-body', r.text || ''));
+        list.appendChild(item);
+      });
+      var link = list.parentNode.querySelector('.cm-sheetlink');
+      if (link && data.sheetUrl) { link.href = data.sheetUrl + '#gid=' + (data.gid || 0); link.style.display = 'inline-block'; }
+    });
+  }
+
+  TABS.forEach(build);
+
+  function current() { var h = location.hash.slice(1); return TABS.indexOf(h) >= 0 ? h : 'why'; }
+  function refresh() { load(current()); }
+  window.addEventListener('hashchange', refresh);
+  refresh();
 })();
 </script>
 </body>
