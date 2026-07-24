@@ -219,6 +219,22 @@ ol.goal-list li { padding: .2rem 0; }
 .dlegend .ll { font-weight: 700; color: var(--ink-soft); margin-right: .25rem; }
 .coverage-note { background: #fff8e0; border-left: 4px solid var(--chosen); padding: .85rem 1.1rem; border-radius: 4px; font-size: .9rem; color: #5c4a00; margin-top: 1.5rem; }
 .coverage-note strong { color: #4a3a00; }
+.pg-tag.alt { background: #5b4a85 !important; }
+.sw-sub { color: var(--ink-soft); font-size: .9rem; margin: .1rem 0 1rem; }
+.sw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 800px) { .sw-grid { grid-template-columns: 1fr; } }
+.sw-card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.15rem; }
+.sw-head { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin-bottom: .45rem; }
+.sw-head h4 { margin: 0; font-size: 1.02rem; }
+.sw-head a { color: var(--accent); text-decoration: none; }
+.sw-head a:hover { text-decoration: underline; }
+.sw-scope { margin-left: auto; font-size: .63rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; padding: .18rem .5rem; border-radius: 999px; white-space: nowrap; }
+.sw-scope.alt { background: var(--purple); color: #3d2c5c; }
+.sw-scope.hs { background: var(--accent-soft); color: var(--accent); }
+.sw-scope.mix { background: var(--gold); color: #5c4a00; }
+.sw-body { font-size: .88rem; margin: 0 0 .5rem; }
+.sw-next { font-size: .8rem; color: var(--ink-soft); border-top: 1px dotted var(--rule); padding-top: .45rem; }
+.sw-next b { color: var(--ink); font-weight: 700; }
 .tl-meta { margin-top: .55rem; padding-top: .5rem; border-top: 1px dotted var(--rule); font-size: .8rem; color: var(--ink-soft); }
 .tl-meta .ttag { display: inline-block; font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: .12rem .45rem; border-radius: 4px; margin-right: .4rem; vertical-align: middle; }
 .ttag-decide { background: var(--gold); color: #5c4a00; }
@@ -256,7 +272,7 @@ details.fine-print { margin-top: 1.75rem; }
 details.fine-print > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: .95rem; padding: .65rem 1rem; background: white; border: 1px solid var(--rule); border-radius: 8px; }
 .fine-print-body { margin-top: 1rem; }
 footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .8rem; color: var(--ink-soft); text-align: center; }
-@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card, .partner, .success-card, .tl-card, .build-cat, .goal-strip, .pilot-card { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
+@media print { body { background: white; } .container { max-width: none; padding: 0; } .schedule-option, .domain, .why-pillar, .why-visual, .badge-family, .req-stat, .tier, .feature, .medal-item, .dp-card, .partner, .success-card, .tl-card, .build-cat, .goal-strip, .pilot-card, .sw-card { break-inside: avoid; } nav.tabs { display: none; } .tab-panel { display: block; } }
 </style>
 <noscript><style>.tab-panel { display: block; } nav.tabs { display: none; }</style></noscript>
 </head>
@@ -700,7 +716,7 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
 
 <section id="pilots" class="major tab-panel">
   <h2>Pilots &mdash; Testing the Model This Year</h2>
-  <p class="section-intro">Before the full model launches, we test its pieces during the 2026-27 school year. Each pilot is a real experiment run by a CSH teacher with real students, built to answer one honest question: does this structure work, for whom, and what would it take to scale? The evidence drives the go/no-go calls on the <a href="#rollout">Rollout</a> timeline. Pilots fall into three groups.</p>
+  <p class="section-intro">Before the full model launches, we test its pieces during the 2026-27 school year. Each pilot is a real experiment run by a CSH teacher with real students, built to answer one honest question: does this structure work, for whom, and what would it take to scale? The evidence drives the go/no-go calls on the <a href="#rollout">Rollout</a> timeline. Pilots fall into four groups, and a set of software pilots runs alongside them.</p>
 
   <div class="dlegend"><span class="ll">Competencies tested:</span>
     <span class="dchip d1">1 Career Readiness</span>
@@ -812,6 +828,28 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
   </div>
 
   <div class="pilot-group">
+    <div class="pilot-group-head"><span class="pg-tag alt">Alt Program</span><h3>Alt Program pilots</h3><span class="pg-sub">CSH_Alt (opens Sept 2026) &mdash; may inform the HS model</span></div>
+    <div class="pilot-grid">
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Self-Directed Learning <span>&mdash; Alt Program, in Kira</span></div>
+        <div class="pc-meta"><strong>Quianna McNair &amp; David Noah</strong> &middot; Alt Program cohort (~25, Year 1)</div>
+      </div>
+      <p class="pc-q">What structure and culture must surround self-paced digital learning to produce strong outcomes? The whole Alt academic program is teacher-supported, self-paced work in Kira, with courses that carry core content into real career contexts.</p>
+      <div class="pc-chips"><span class="dchip d3 primary">Agency</span><span class="dchip d2">Learning &amp; Reasoning</span></div>
+    </div>
+    <div class="pilot-card">
+      <div class="pc-head">
+        <div class="pc-name">Career VR <span>&mdash; Victory XR + job shadows</span></div>
+        <div class="pc-meta"><strong>Quianna McNair &amp; David Noah</strong> &middot; Alt Program cohort (~25, Year 1)</div>
+      </div>
+      <p class="pc-q">Is VR an effective way to give students real experiential career exposure? Victory XR curriculum and headsets pair with real job shadows twice a month.</p>
+      <div class="pc-chips"><span class="dchip d1 primary">Career Readiness</span></div>
+    </div>
+    </div>
+  </div>
+
+  <div class="pilot-group">
     <div class="pilot-group-head"><span class="pg-tag">Advisory</span><h3>Advisory</h3><span class="pg-sub">the daily morning structure that anchors the new schedule</span></div>
     <div class="pilot-grid">
     <div class="pilot-card">
@@ -825,7 +863,32 @@ footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rul
     </div>
   </div>
 
-  <div class="coverage-note"><strong>What the pilots test &mdash; and don't yet.</strong> Because every pilot is a schoolhouse experiment run by current teachers, Domains 2 (Learning &amp; Reasoning) and 3 (Agency) get tested many times over. The gaps are the experiences that need a <em>partner, a kitchen, a worksite, or a government office</em> rather than a classroom: the career-field ladder (Career Intro / Deep Dive), nutrition and cooking, and civic engagement are not yet on the pilot slate. Those are exactly where the current school model is thinnest &mdash; and the cheapest fixes are to turn one early <a href="#partners">partnership</a> into a short Career Intro probe and run a four-week civic-engagement block, neither of which needs new staff.</div>
+  <div class="coverage-note"><strong>What the pilots test &mdash; and don't yet.</strong> Because every pilot is a schoolhouse experiment run by current teachers, Domains 2 (Learning &amp; Reasoning) and 3 (Agency) get tested many times over. The gaps are the experiences that need a <em>partner, a kitchen, a worksite, or a government office</em> rather than a classroom: the HS career-field ladder (Career Intro / Deep Dive), nutrition and cooking, and civic engagement are not yet on the HS pilot slate &mdash; though the Alt Program’s Career VR pilot begins probing career exposure for its own students. Those are exactly where the current school model is thinnest &mdash; and the cheapest fixes are to turn one early <a href="#partners">partnership</a> into a short Career Intro probe and run a four-week civic-engagement block, neither of which needs new staff.</div>
+
+  <h3 style="margin: 2rem 0 .3rem; font-size: 1.25rem;">Software pilots</h3>
+  <p class="sw-sub">Tools we're testing this year &mdash; several start in the Alt Program or a single course, with a planned path into the wider HS and middle school.</p>
+  <div class="sw-grid">
+    <div class="sw-card">
+      <div class="sw-head"><h4><a href="https://www.victoryxr.com/cte/" target="_blank" rel="noopener">Victory XR</a></h4><span class="sw-scope alt">Alt only</span></div>
+      <p class="sw-body">Virtual-reality career exposure and introductory job training across several fields, paired with real job shadows twice a month.</p>
+      <p class="sw-next"><b>Next:</b> Alt Program only for now &mdash; may expand to the HS model if it goes well.</p>
+    </div>
+    <div class="sw-card">
+      <div class="sw-head"><h4><a href="https://www.kiralearning.com/" target="_blank" rel="noopener">Kira Learning</a></h4><span class="sw-scope alt">Alt + AP flipped</span></div>
+      <p class="sw-body">The primary learning platform for the Alt Program's self-paced courses; also powering flipped-classroom pilots in several AP classes.</p>
+      <p class="sw-next"><b>Next:</b> primarily Alt Program, with some limited HS Redesign pilot use (TBD).</p>
+    </div>
+    <div class="sw-card">
+      <div class="sw-head"><h4><a href="https://teachtoone.org/" target="_blank" rel="noopener">Teach to One</a></h4><span class="sw-scope mix">HS pilot &rarr; HS &amp; MS</span></div>
+      <p class="sw-body">Adaptive math supporting Algebra and Pre-Algebra, piloted in the HS as a remediation tool.</p>
+      <p class="sw-next"><b>Next:</b> planned for regular HS algebra classes next year, and to support the HS Redesign and the middle school.</p>
+    </div>
+    <div class="sw-card">
+      <div class="sw-head"><h4><a href="https://www.quill.org/" target="_blank" rel="noopener">Quill</a></h4><span class="sw-scope hs">HS English</span></div>
+      <p class="sw-body">Sentence-level writing and grammar practice &mdash; expanding from grammar into reading-comprehension intervention and to support the Writing Revolution work.</p>
+      <p class="sw-next"><b>Next:</b> already in use for grammar; planned for all English classes next year.</p>
+    </div>
+  </div>
 </section>
 
 <section id="partners" class="major tab-panel">
